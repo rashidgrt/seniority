@@ -1,0 +1,1434 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PST/EST Seniority Updation Form — Female, District Gujrat</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700&family=Noto+Nastaliq+Urdu:wght@500;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.js"></script>
+<style>
+  :root{
+    --bg:#F6F5F0;
+    --panel:#FFFFFF;
+    --ink:#1C2B22;
+    --muted:#5C6A61;
+    --green:#0B5D3B;
+    --green-dark:#083F28;
+    --gold:#9C7A24;
+    --line:#DCE1DA;
+    --line-soft:#EAEDE8;
+    --danger:#B3261E;
+    --danger-bg:#FBEAE9;
+    --focus:#0B5D3B;
+    --radius:6px;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .urdu{
+    font-family:'Noto Nastaliq Urdu','Inter',sans-serif;
+    direction:rtl;
+    line-height:2.4;
+    font-size:1.05rem;
+  }
+  a{color:var(--green);}
+
+  .page{max-width:880px;margin:0 auto;padding:28px 18px 80px;}
+
+  /* Letterhead */
+  .letterhead{
+    text-align:center;
+    padding:22px 20px 20px;
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-top:4px solid var(--green);
+    border-radius:var(--radius) var(--radius) 0 0;
+  }
+  .letterhead .dept{
+    font-family:'Lora',serif;
+    font-weight:600;
+    font-size:0.78rem;
+    letter-spacing:.04em;
+    color:var(--gold);
+    text-transform:uppercase;
+  }
+  .letterhead h1{
+    font-family:'Lora',serif;
+    font-weight:700;
+    font-size:1.5rem;
+    margin:8px 0 4px;
+    color:var(--green-dark);
+  }
+  .letterhead .sub{
+    font-size:0.92rem;
+    color:var(--muted);
+    margin:0;
+  }
+  .letterhead hr{
+    border:none;
+    border-top:2px solid var(--green);
+    border-bottom:1px solid var(--gold);
+    height:0;
+    margin:16px auto 0;
+    width:100%;
+  }
+
+  form{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-top:none;
+    border-radius:0 0 var(--radius) var(--radius);
+    padding:8px 28px 28px;
+  }
+
+  .section{margin-top:34px;}
+  .section-title{
+    display:flex;
+    align-items:baseline;
+    gap:10px;
+    margin:0 0 4px;
+  }
+  .section-title .bar{
+    width:4px;height:20px;background:var(--gold);border-radius:2px;flex:none;
+  }
+  .section-title h2{
+    font-family:'Lora',serif;
+    font-weight:600;
+    font-size:1.12rem;
+    margin:0;
+    color:var(--green-dark);
+  }
+  .section-hint{
+    font-size:0.83rem;
+    color:var(--muted);
+    margin:2px 0 16px 14px;
+  }
+
+  .grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:16px 20px;
+  }
+  .grid.cols-3{grid-template-columns:1fr 1fr 1fr;}
+  .field{display:flex;flex-direction:column;gap:6px;}
+  .field.full{grid-column:1 / -1;}
+
+  .name-parentage-row{
+    display:grid;
+    grid-template-columns:1fr auto 1fr;
+    gap:8px;
+    align-items:center;
+  }
+  .name-parentage-row .dO-separator{
+    font-weight:700;
+    color:var(--green-dark);
+    font-size:0.85rem;
+    text-align:center;
+  }
+
+  label{
+    font-size:0.86rem;
+    font-weight:600;
+    color:var(--ink);
+  }
+  label .req{color:var(--danger);margin-left:2px;}
+  label .opt{color:var(--muted);font-weight:500;font-size:0.78rem;}
+
+  input[type=text],
+  input[type=number],
+  input[type=date],
+  select,
+  textarea{
+    font-family:inherit;
+    font-size:0.95rem;
+    padding:9px 11px;
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    background:#FCFCFA;
+    color:var(--ink);
+    width:100%;
+  }
+  textarea{resize:vertical;min-height:70px;}
+  input:focus,select:focus,textarea:focus{
+    outline:none;
+    border-color:var(--focus);
+    box-shadow:0 0 0 3px rgba(11,93,59,0.12);
+    background:#fff;
+  }
+  input.uppercase-field{text-transform:uppercase;}
+  input[readonly]{background:var(--line-soft);color:var(--muted);cursor:not-allowed;}
+  .helper{font-size:0.78rem;color:var(--muted);}
+  .helper.err{color:var(--danger);}
+  .field.invalid input,
+  .field.invalid select{
+    border-color:var(--danger);
+    background:var(--danger-bg);
+  }
+
+  .conditional-block{
+    grid-column:1 / -1;
+    margin-top:4px;
+    padding:16px 16px 4px;
+    border:1px dashed var(--gold);
+    border-radius:var(--radius);
+    background:#FCFAF3;
+    display:none;
+  }
+  .conditional-block.show{display:grid;grid-template-columns:1fr 1fr;gap:16px 20px;}
+  .conditional-block .field.full{grid-column:1/-1;}
+  .conditional-label{
+    grid-column:1/-1;
+    font-size:0.78rem;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:.03em;
+    color:var(--gold);
+    margin:-4px 0 2px;
+  }
+
+  /* Declaration */
+  .declaration{
+    margin-top:38px;
+    padding:18px 18px;
+    border:1px solid var(--line);
+    border-left:4px solid var(--green);
+    border-radius:var(--radius);
+    background:#F9FAF7;
+  }
+  .declaration label{
+    display:flex;
+    align-items:flex-start;
+    gap:12px;
+    font-weight:500;
+    cursor:pointer;
+  }
+  .declaration input[type=checkbox]{
+    margin-top:4px;
+    width:18px;height:18px;flex:none;accent-color:var(--green);
+  }
+  .declaration .urdu{flex:1;}
+
+  .actions{
+    display:flex;
+    justify-content:flex-end;
+    gap:12px;
+    margin-top:26px;
+  }
+  button{
+    font-family:inherit;
+    font-size:0.95rem;
+    font-weight:600;
+    padding:11px 24px;
+    border-radius:var(--radius);
+    border:1px solid transparent;
+    cursor:pointer;
+  }
+  .btn-primary{background:var(--green);color:#fff;}
+  .btn-primary:hover{background:var(--green-dark);}
+  .btn-primary:disabled{background:#9BAFA4;cursor:not-allowed;}
+  .btn-ghost{background:transparent;color:var(--green-dark);border-color:var(--line);}
+  .btn-ghost:hover{background:var(--line-soft);}
+
+  .top-note{
+    background:#FCFAF3;
+    border:1px solid var(--gold);
+    border-radius:var(--radius);
+    padding:14px 16px;
+    margin-bottom:16px;
+    font-size:0.86rem;
+    color:var(--ink);
+  }
+  .top-note summary{cursor:pointer;font-weight:600;color:var(--green-dark);}
+  .top-note code{
+    background:#EFEAD9;
+    padding:1px 5px;
+    border-radius:4px;
+    font-size:0.82rem;
+  }
+  .top-note pre{
+    background:#1C2B22;
+    color:#E9EFE9;
+    padding:12px;
+    border-radius:6px;
+    overflow-x:auto;
+    font-size:0.78rem;
+    line-height:1.6;
+  }
+
+  /* Modal */
+  .modal-overlay{
+    position:fixed;inset:0;background:rgba(20,26,22,0.55);
+    display:none;align-items:flex-start;justify-content:center;
+    padding:32px 14px;overflow-y:auto;z-index:50;
+  }
+  .modal-overlay.show{display:flex;}
+  .modal{
+    background:#fff;border-radius:8px;max-width:760px;width:100%;
+    padding:26px 26px 22px;box-shadow:0 20px 50px rgba(0,0,0,0.25);
+  }
+  .modal h2{font-family:'Lora',serif;color:var(--green-dark);margin-top:0;}
+  .preview-table{width:100%;border-collapse:collapse;margin-top:10px;}
+  .preview-table tr{border-bottom:1px solid var(--line-soft);}
+  .preview-table td{padding:7px 4px;font-size:0.9rem;vertical-align:top;}
+  .preview-table td.k{color:var(--muted);width:46%;font-weight:600;}
+  .preview-table td.v{font-weight:500;}
+  .preview-section-title{
+    font-family:'Lora',serif;font-weight:600;color:var(--green-dark);
+    margin:18px 0 2px;font-size:1rem;border-top:1px solid var(--line);padding-top:14px;
+  }
+  .preview-section-title:first-of-type{border-top:none;padding-top:0;margin-top:6px;}
+  .modal-actions{display:flex;justify-content:flex-end;gap:12px;margin-top:22px;}
+  .status-line{margin-top:14px;font-size:0.85rem;color:var(--muted);min-height:1.2em;}
+  .status-line.ok{color:var(--green);}
+  .status-line.bad{color:var(--danger);}
+
+  /* Hidden print template used for PDF capture */
+  #printTemplate{
+    position:fixed;top:0;left:-10000px;
+    width:780px;background:#ffffff;color:#111;
+    font-family:'Inter',sans-serif;
+  }
+  #printTemplate .pt-header{
+    background:linear-gradient(135deg, #0B5D3B 0%, #0F7A4C 100%);
+    color:#fff;text-align:center;padding:16px 20px 12px;
+  }
+  #printTemplate .pt-header h1{font-family:'Lora',serif;font-size:16px;margin:0 0 3px;color:#fff;}
+  #printTemplate .pt-header .pt-sub{font-size:10.5px;color:#DFF3E8;margin:0;}
+  #printTemplate .pt-goldbar{height:5px;background:linear-gradient(90deg, #9C7A24, #C9A63C, #9C7A24);}
+  #printTemplate .pt-body{padding:14px 22px 18px;}
+  #printTemplate .pt-section-header{
+    color:#fff;font-family:'Lora',serif;font-weight:700;font-size:11.5px;
+    padding:4px 10px;border-radius:4px;margin:12px 0 6px;letter-spacing:.03em;
+  }
+  #printTemplate .pt-grid{
+    display:grid;grid-template-columns:repeat(auto-fill, minmax(165px, 1fr));
+    gap:5px 14px;margin-bottom:2px;
+  }
+  #printTemplate .pt-cell{border-bottom:1px solid #E2E2E2;padding-bottom:2px;}
+  #printTemplate .pt-cell .pt-label{
+    display:block;font-size:8.5px;text-transform:uppercase;letter-spacing:.03em;
+    color:#8a8a8a;margin-bottom:1px;
+  }
+  #printTemplate .pt-cell .pt-value{
+    display:block;font-size:11px;font-weight:600;color:#161616;word-break:break-word;
+  }
+  #printTemplate .pt-declaration{
+    margin-top:16px;font-family:'Noto Nastaliq Urdu',sans-serif;direction:rtl;
+    font-size:13px;line-height:1.9;border:1px solid #C9A63C;border-left:4px solid #9C7A24;
+    padding:10px 12px;background:#FCFAF3;border-radius:4px;
+  }
+  #printTemplate .pt-sign{display:flex;justify-content:space-between;margin-top:26px;font-size:11px;}
+  #printTemplate .pt-sign div{width:45%;text-align:center;border-top:1px solid #333;padding-top:5px;}
+
+  footer.page-footer{
+    text-align:center;font-size:0.78rem;color:var(--muted);margin-top:18px;
+  }
+
+  /* Flatpickr calendar theming to match the form */
+  .flatpickr-day.selected, .flatpickr-day.selected:hover, .flatpickr-day.selected:focus{
+    background:var(--green); border-color:var(--green);
+  }
+  .flatpickr-day.today{ border-color:var(--gold); }
+  .flatpickr-months .flatpickr-month,
+  .flatpickr-current-month .flatpickr-monthDropdown-months,
+  .flatpickr-current-month input.cur-year{ color:var(--green-dark); }
+  .flatpickr-months .flatpickr-prev-month:hover svg,
+  .flatpickr-months .flatpickr-next-month:hover svg{ fill:var(--green); }
+
+  @media (max-width:640px){
+    .grid, .grid.cols-3, .conditional-block.show{grid-template-columns:1fr;}
+    form{padding:4px 16px 22px;}
+    .letterhead{padding:18px 14px;}
+    .name-parentage-row{grid-template-columns:1fr;}
+    .name-parentage-row .dO-separator{justify-self:start;padding-left:2px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <div class="letterhead">
+    <div class="dept">District Education Authority · Gujrat</div>
+    <h1>Seniority Updation Form — PST / EST (Female)</h1>
+    <p class="sub">Tentative seniority data collection for female PST &amp; EST cadre, District Gujrat</p>
+    <hr>
+  </div>
+
+  <form id="seniorityForm" novalidate>
+
+    <details class="top-note" style="margin-top:16px;">
+      <summary>Setup note for the form administrator (Rashid) — tap to expand</summary>
+      <p style="margin:10px 0 6px;">This form writes to a Google Sheet through a Google Apps Script Web App. Before sharing this form:</p>
+      <ol style="margin:0 0 10px;padding-left:18px;">
+        <li>Create a Google Sheet for responses.</li>
+        <li>Open <b>Extensions → Apps Script</b>, paste the backend code provided separately, and deploy it as a <b>Web App</b> (Execute as: Me, Who has access: Anyone).</li>
+        <li>Copy the deployment URL and paste it as <code>GAS_URL</code> near the top of the <code>&lt;script&gt;</code> section of this file, replacing <code>"PASTE_YOUR_GOOGLE_APPS_SCRIPT_URL_HERE"</code>.</li>
+        <li>Re-open this file — submissions will then be appended to your Sheet automatically, and a PDF copy will download to the teacher's device on every submission.</li>
+      </ol>
+      <p style="margin:0;color:var(--muted);">Until <code>GAS_URL</code> is set, the form will still let a teacher preview and download the PDF, but it cannot save the row to Google Sheets.</p>
+    </details>
+
+    <!-- ============ PERSONAL DETAILS ============ -->
+    <div class="section">
+      <div class="section-title"><span class="bar"></span><h2>Personal Details</h2></div>
+      <div class="grid">
+
+        <div class="field">
+          <label>Designation<span class="req">*</span></label>
+          <select id="designation" required>
+            <option value="">Select…</option>
+            <option value="PST">PST</option>
+            <option value="EST General Arts">EST General Arts</option>
+            <option value="EST English">EST English</option>
+            <option value="EST Urdu">EST Urdu</option>
+            <option value="EST Maths">EST Maths</option>
+            <option value="EST Science">EST Science</option>
+            <option value="EST Computer Science">EST Computer Science</option>
+            <option value="EST Vernacular">EST Vernacular</option>
+            <option value="EST Physical Education">EST Physical Education</option>
+            <option value="EST Arabic">EST Arabic</option>
+            <option value="EST Drawing">EST Drawing</option>
+          </select>
+        </div>
+
+        <div class="field" id="promoteeOrDirectField" style="display:none;">
+          <label>Promotee / Direct Selectee<span class="req">*</span></label>
+          <select id="promoteeOrDirect">
+            <option value="">Select…</option>
+            <option value="Promotee">Promotee</option>
+            <option value="Direct Selectee">Direct Selectee</option>
+          </select>
+        </div>
+
+        <div class="field full" id="teacherNameParentageField">
+          <label>Name of Teacher with Parentage<span class="req">*</span> <span class="opt">(saved in CAPITAL letters)</span></label>
+          <div class="name-parentage-row">
+            <input type="text" id="teacherNameOnly" class="uppercase-field" required autocomplete="off" placeholder="TEACHER NAME">
+            <span class="dO-separator">D/O</span>
+            <input type="text" id="fatherNameOnly" class="uppercase-field" required autocomplete="off" placeholder="FATHER NAME">
+          </div>
+          <input type="hidden" id="teacherNameParentage">
+          <span class="helper">Saved together as: NAME D/O FATHER NAME</span>
+        </div>
+
+        <div class="field">
+          <label>CNIC<span class="req">*</span></label>
+          <input type="text" id="cnic" placeholder="00000-0000000-0" maxlength="15" required inputmode="numeric">
+          <span class="helper" id="cnicHelper">Format: 00000-0000000-0</span>
+        </div>
+
+        <div class="field">
+          <label>Date of Birth<span class="req">*</span></label>
+          <input type="text" id="dob" placeholder="dd/mm/yyyy" required inputmode="numeric">
+          <span class="helper" id="dobHelper">dd/mm/yyyy</span>
+        </div>
+
+        <div class="field">
+          <label>Domicile District<span class="req">*</span></label>
+          <input type="text" id="domicileDistrict" required autocomplete="off">
+        </div>
+
+        <div class="field">
+          <label>EMIS Code<span class="req">*</span></label>
+          <input type="text" id="emisCode" required inputmode="numeric" autocomplete="off">
+          <span class="helper" id="emisHelper">Enter the school EMIS code to auto-fill the school name.</span>
+        </div>
+
+        <div class="field">
+          <label>Current School Name</label>
+          <input type="text" id="schoolName" readonly placeholder="Auto-filled from EMIS code">
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ============ ACADEMIC QUALIFICATION ============ -->
+    <div class="section">
+      <div class="section-title"><span class="bar"></span><h2>Academic Qualification</h2></div>
+      <p class="section-hint">If the highest qualification is other than Matric, F.A/F.Sc, B.A or B.Sc, a second qualification will appear below.</p>
+      <div class="grid cols-3">
+
+        <div class="field">
+          <label>Highest Degree / Certificate<span class="req">*</span></label>
+          <select id="highestQualification" required>
+            <option value="">Select…</option>
+            <option value="Matric">Matric</option>
+            <option value="F.A / F.Sc">F.A / F.Sc</option>
+            <option value="B.A">B.A</option>
+            <option value="B.Sc">B.Sc</option>
+            <option value="BS (Hons)">BS (Hons)</option>
+            <option value="M.A">M.A</option>
+            <option value="M.Sc">M.Sc</option>
+            <option value="M.Phil">M.Phil</option>
+            <option value="PhD">PhD</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+
+        <div class="field" id="highestSubjectField">
+          <label>Subject<span class="req">*</span></label>
+          <input type="text" id="highestSubject" required autocomplete="off">
+          <select id="highestSubjectBscSelect" style="display:none;">
+            <option value="">Select…</option>
+            <option value="Math A-B Physics">Math A-B Physics</option>
+            <option value="Others">Others</option>
+          </select>
+          <input type="text" id="highestSubjectBscOther" style="display:none;" placeholder="e.g. Physics, Chemistry, Biology" autocomplete="off">
+          <span class="helper" id="highestSubjectHelper" style="display:none;">Enter exactly three subjects, separated by commas.</span>
+        </div>
+
+        <div class="field">
+          <label>Division<span class="req">*</span></label>
+          <select id="highestDivision" required>
+            <option value="">Select…</option>
+            <option value="1st Division">1st Division</option>
+            <option value="2nd Division">2nd Division</option>
+            <option value="3rd Division">3rd Division</option>
+          </select>
+        </div>
+
+        <div class="field" id="highestQualificationOtherField" style="display:none;">
+          <label>Please specify qualification<span class="req">*</span></label>
+          <input type="text" id="highestQualificationOther" autocomplete="off">
+        </div>
+
+        <div class="conditional-block" id="secondQualBlock">
+          <div class="conditional-label">2nd Qualification <span class="opt" style="text-transform:none;font-weight:500;">(optional)</span></div>
+          <div class="field">
+            <label>2nd Qualification</label>
+            <select id="secondQualification">
+              <option value="">Select…</option>
+              <option value="B.Sc">B.Sc</option>
+              <option value="BS (Hons)">BS (Hons)</option>
+              <option value="M.A">M.A</option>
+              <option value="M.Sc">M.Sc</option>
+              <option value="M.Phil">M.Phil</option>
+              <option value="PhD">PhD</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div class="field" id="secondSubjectField">
+            <label>Subject</label>
+            <input type="text" id="secondSubject" autocomplete="off">
+            <select id="secondSubjectBscSelect" style="display:none;">
+              <option value="">Select…</option>
+              <option value="Math A-B Physics">Math A-B Physics</option>
+              <option value="Others">Others</option>
+            </select>
+            <input type="text" id="secondSubjectBscOther" style="display:none;" placeholder="e.g. Physics, Chemistry, Biology" autocomplete="off">
+            <span class="helper" id="secondSubjectHelper" style="display:none;">Enter exactly three subjects, separated by commas.</span>
+          </div>
+          <div class="field">
+            <label>Division</label>
+            <select id="secondDivision">
+              <option value="">Select…</option>
+              <option value="1st Division">1st Division</option>
+              <option value="2nd Division">2nd Division</option>
+              <option value="3rd Division">3rd Division</option>
+            </select>
+          </div>
+          <div class="field full" id="secondQualificationOtherField" style="display:none;">
+            <label>Please specify qualification</label>
+            <input type="text" id="secondQualificationOther" autocomplete="off">
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ============ PROFESSIONAL QUALIFICATION ============ -->
+    <div class="section">
+      <div class="section-title"><span class="bar"></span><h2>Professional Qualification</h2></div>
+      <p class="section-hint">Selecting B.Ed, B.Ed (Hons) or M.Ed below will reveal a 2nd professional qualification. Selecting Other will ask you to specify.</p>
+      <div class="grid">
+
+        <div class="field">
+          <label>1st Qualification<span class="req">*</span></label>
+          <select id="profQualification1" required>
+            <option value="">Select…</option>
+            <option value="PTC">PTC</option>
+            <option value="CT">CT</option>
+            <option value="ADE">ADE</option>
+            <option value="B.Ed">B.Ed</option>
+            <option value="B.Ed (Hons)">B.Ed (Hons)</option>
+            <option value="M.Ed">M.Ed</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label>Division<span class="req">*</span></label>
+          <select id="profDivision1" required>
+            <option value="">Select…</option>
+            <option value="1st Division">1st Division</option>
+            <option value="2nd Division">2nd Division</option>
+            <option value="3rd Division">3rd Division</option>
+          </select>
+        </div>
+
+        <div class="field" id="profQualification1OtherField" style="display:none;">
+          <label>Please specify qualification<span class="req">*</span></label>
+          <input type="text" id="profQualification1Other" autocomplete="off">
+        </div>
+
+        <div class="conditional-block" id="secondProfQualBlock">
+          <div class="conditional-label">2nd Professional Qualification <span class="opt" style="text-transform:none;font-weight:500;">(optional)</span></div>
+          <div class="field">
+            <label>2nd Qualification</label>
+            <select id="profQualification2">
+              <option value="">Select…</option>
+              <option value="B.Ed">B.Ed</option>
+              <option value="M.Ed">M.Ed</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Division</label>
+            <select id="profDivision2">
+              <option value="">Select…</option>
+              <option value="1st Division">1st Division</option>
+              <option value="2nd Division">2nd Division</option>
+              <option value="3rd Division">3rd Division</option>
+            </select>
+          </div>
+          <div class="field full" id="profQualification2OtherField" style="display:none;">
+            <label>Please specify qualification</label>
+            <input type="text" id="profQualification2Other" autocomplete="off">
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ============ PROFESSIONAL DETAILS ============ -->
+    <div class="section">
+      <div class="section-title"><span class="bar"></span><h2>Professional Details</h2></div>
+      <div class="grid">
+
+        <div class="field">
+          <label>Current Seniority Number<span class="req">*</span></label>
+          <input type="text" id="seniorityNumber" required autocomplete="off">
+        </div>
+
+        <div class="field">
+          <label>First Appointment Authority<span class="req">*</span></label>
+          <select id="firstAppointmentAuthority" required>
+            <option value="">Select…</option>
+            <option value="DEO/DY.DEO(Women)">DEO/DY.DEO(Women)</option>
+            <option value="DEO(Male)">DEO(Male)</option>
+            <option value="Other Districts">Other Districts</option>
+          </select>
+        </div>
+
+        <div class="field" id="firstAppointmentAuthorityOtherField" style="display:none;">
+          <label>District Name<span class="req">*</span></label>
+          <input type="text" id="firstAppointmentAuthorityOther" autocomplete="off">
+        </div>
+
+        <div class="field">
+          <label>Date of Appointment<span class="req">*</span></label>
+          <input type="text" id="dateOfAppointment" placeholder="dd/mm/yyyy" required inputmode="numeric">
+          <span class="helper" id="dateOfAppointmentHelper">dd/mm/yyyy</span>
+        </div>
+
+        <div class="field">
+          <label>Date of Regular<span class="req">*</span></label>
+          <input type="text" id="dateOfRegular" placeholder="dd/mm/yyyy" required inputmode="numeric">
+          <span class="helper" id="dateOfRegularHelper">dd/mm/yyyy</span>
+        </div>
+
+        <div class="field">
+          <label>Merit Marks<span class="req">*</span></label>
+          <input type="number" step="0.01" min="0" max="100" id="meritMarks" required>
+          <span class="helper" id="meritMarksHelper">Out of 100</span>
+        </div>
+
+        <div class="conditional-block" id="estPromotionBlock">
+          <div class="conditional-label">EST Promotion Details</div>
+
+          <div class="field">
+            <label>Date Of Joining as EST</label>
+            <input type="text" id="dateJoiningEST" placeholder="dd/mm/yyyy" inputmode="numeric">
+            <span class="helper" id="dateJoiningESTHelper">dd/mm/yyyy</span>
+          </div>
+          <div class="field">
+            <label>Promotion Order No</label>
+            <input type="text" id="promotionOrderNo" autocomplete="off">
+          </div>
+          <div class="field">
+            <label>Date of Promotion Order</label>
+            <input type="text" id="dateOfPromotionOrder" placeholder="dd/mm/yyyy" inputmode="numeric">
+            <span class="helper" id="dateOfPromotionOrderHelper">dd/mm/yyyy</span>
+          </div>
+          <div class="field full">
+            <label>Authority of Promotion</label>
+            <select id="authorityOfPromotion">
+              <option value="">Select…</option>
+              <option value="DEO(Women)">DEO(Women)</option>
+              <option value="DEO(Male)">DEO(Male)</option>
+              <option value="Other Districts">Other Districts</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Date of Joining District Gujrat<span class="req">*</span></label>
+          <input type="text" id="dateJoiningDistrictGujrat" placeholder="dd/mm/yyyy" required inputmode="numeric">
+          <span class="helper" id="dateJoiningDistrictGujratHelper">dd/mm/yyyy</span>
+        </div>
+
+        <div class="field">
+          <label>Date of Joining Female School<span class="req">*</span></label>
+          <input type="text" id="dateJoiningFemaleSchool" placeholder="dd/mm/yyyy" required inputmode="numeric">
+          <span class="helper" id="dateJoiningFemaleSchoolHelper">dd/mm/yyyy</span>
+        </div>
+
+        <div class="field full">
+          <label>Any Other Detail <span class="opt">(optional)</span></label>
+          <textarea id="anyOtherDetail"></textarea>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ============ DECLARATION ============ -->
+    <div class="declaration">
+      <label>
+        <input type="checkbox" id="declarationCheck" required>
+        <span class="urdu">"میں حلفاً بیان کرتی ہوں کہ اس فارم میں درج تمام معلومات بالکل درست ہیں، کسی بھی غلطی کی صورت میں میں ذمہ دار ہوں گی۔"</span>
+      </label>
+    </div>
+
+    <div class="actions">
+      <button type="button" class="btn-primary" id="previewBtn">Preview Form</button>
+    </div>
+
+  </form>
+
+  <footer class="page-footer">All fields marked with an asterisk are required · Data is submitted directly to the district Google Sheet</footer>
+</div>
+
+<!-- ============ PREVIEW MODAL ============ -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <h2>Review Your Details</h2>
+    <p style="color:var(--muted);font-size:0.88rem;margin-top:-6px;">Please check everything carefully before submitting — the CNIC and name are used to name your saved PDF copy.</p>
+    <div id="previewBody"></div>
+    <div class="status-line" id="statusLine"></div>
+    <div class="modal-actions">
+      <button type="button" class="btn-ghost" id="editBtn">Edit</button>
+      <button type="button" class="btn-primary" id="confirmSubmitBtn">Confirm &amp; Submit</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ HIDDEN PRINT TEMPLATE (used for PDF capture) ============ -->
+<div id="printTemplate">
+  <div class="pt-header">
+    <h1>Seniority Updation Form — PST / EST (Female)</h1>
+    <div class="pt-sub">District Education Authority, Gujrat</div>
+  </div>
+  <div class="pt-goldbar"></div>
+  <div class="pt-body">
+    <div id="printBody"></div>
+    <div class="pt-declaration">"میں حلفاً بیان کرتی ہوں کہ اس فارم میں درج تمام معلومات بالکل درست ہیں، کسی بھی غلطی کی صورت میں میں ذمہ دار ہوں گی۔"</div>
+    <div class="pt-sign">
+      <div>دستخط ٹیچر</div>
+      <div>دستخط مہر ہیڈ ٹیچر</div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+/* ============================================================
+   0. CONFIG — set this after deploying the Apps Script backend
+   ============================================================ */
+const GAS_URL = "PASTE_YOUR_GOOGLE_APPS_SCRIPT_URL_HERE";
+
+/* ============================================================
+   1. SCHOOLS LOOKUP DATA (EMIS Code -> School Name)
+   ============================================================ */
+const SCHOOLS = {"34210746":"GMPS SAIDA","34210760":"GGES BOKAN","34210764":"GMPS MAKAN","34210775":"GMPS HASTA GHAGA","34210776":"GMPS CHAKANWALI","34210778":"GMPS DAO","34210784":"GGCMS DAULAT NAGAR","34210129":"GES MAJRA","34210130":"GES DHUMMA MALKA","34210322":"GPS KOTLA DHINDA","34210331":"GPS DHEREKRI","34210332":"GPS CHAK BAHRAM","34210474":"GPS FATEH PUR","34210476":"GPS DOGA","34210479":"GPS DAULAT NAGAR","34210481":"GES SARAI DHING","34210486":"GES GHANSIA","34210179":"GGES BORA","34210752":"GGES UGGO WAL","34210753":"GMPS JHANS","34210761":"GMPS NATHOWAL","34210762":"GMPS CHOHAR CHAK","34210770":"GMPS CHAK KURAL","34210153":"GGES DHARAKARI","34210741":"GMPS KIRANWALA SHUMALI","34210743":"GGES SARAI DHING","34210744":"GMPS CHOKAR KHURD","34210748":"GMPS UMAR WAL","34210750":"GGPS GARHI BAHU","34210751":"GGES DUHMA MALIKA","34210768":"GMPS MEHSIAN","34210777":"GMPS MEHSUM","34210785":"GGPS BHALASER","34210201":"GPS ISLAM NAGAR GUJRAT","34210202":"GPS SWIDISH GUJRAT","34210204":"GPS AMINABAD","34210205":"GMPS KHALID ABAD","34210207":"GPS KALARA KHASA","34210208":"GES TIBBI MARLAN","34210212":"GPS GORALA","34210216":"GPS DHERKEY KALAN","34210218":"GPS MOHLA KHURD","34210219":"GPS GHAZI CHAK","34210232":"GPS ADOWAL","34211004":"GPS MC NO. 1 FATTU PURA","34210788":"GGPS KUTCHERY CHOWK","34210790":"GGES DURANI MODEL","34210791":"GGPS BOLAY","34210792":"GGPS GHAZI KHOKHAR","34210798":"GGPS KOT RANDAHWA","34210840":"GGES UDOWAL KHURD","34211055":"GGPS MC FEROZ ABAD","34211057":"GGPS MC NO. 1 CHOWK NAWAB SAHIB","34211058":"GGPS MC NO. 2 FATTU PURA","34211059":"GGPS MC MEHMDA","34211061":"GGPS MC QUTAB ABAD GUJRAT","34210670":"GGPS KANWAN WALI SARKAR","34210789":"GGPS JATTO WAKAL","34210827":"GGPS NEW MODEL GUJRAT","34210839":"GGPS GANDRA KHURD","34210847":"GGPS KALRA PUNWAN","34210849":"GGPS GORALA","34210856":"GGPS LUND PUR","34210859":"GGCMS KUTHALA CHENAB","34210982":"GGPS MOIN-UD-DIN PUR","34211056":"GGPS MC KALRA KHASA","34210812":"GMPS JULIANI","34210813":"GMPS TIBA BOTAY SHAH","34210818":"GGPS CHANNI HAFIZ","34210819":"GMPS CHANNI NIKOWANY","34210823":"GMPS KOT BELLA","34210824":"GMPS TIBBA HAMAD SHAH","34210842":"GMPS MUSA KAMALA","34210162":"GGES TARA GHAR","34210691":"GGPS SHADIWAL SHARQI","34210694":"GMPS GORAIY","34210706":"GGPS SHADIWAL ICHERKEY","34210726":"GGPS LALA CHAK","34210731":"GMPS BUTTER","34210846":"GGPS GHAZI CHAK","34210852":"GMPS SAMMAN","34210853":"GMPS MOHLA KALAN","34210854":"GMPS DHEERKAY KHURD","34210860":"GGES DHEERKAY KALAN","34210114":"GES SADEHRI","34210234":"GPS DHOOL KHURD","34210235":"GPS SAHIB LAKHO","34210254":"GPS UDDOWAL KALAN","34210256":"GPS PHULLARWAN","34210261":"GPS DHOOL SARAI","34210497":"GPS JOURA JALAL PUR","34210876":"GPS MIANA KOT","34210196":"GGES JAMAL PUR SYEDAN","34210672":"GGPS DHADAR","34210803":"GGES HUNJRA","34210806":"GGPS SOOK KHURD","34210810":"GGPS GHUMAN","34210811":"GGES CHAK MANJOU","34210834":"GGPS MADINA NO.2","34210835":"GGPS NO.1 MADINA SYEDAN","34210836":"GGPS GAGIAN","34210850":"GGES BANTH","34210795":"GGPS KHARIAN WALI","34210796":"GMPS KOT GHULAM","34210800":"GMPS KOLOWAL","34210801":"GGPS KOTLI KUNDU","34210804":"GMPS GUJAR PUR","34210805":"GGES CHAK BHOLA","34210808":"GGPS PINDI HASANA","34210848":"GMPS RATTI","34210984":"GGPS SULTAN ABAD","34210163":"GGES THAKHER KHOKHRAN","34210669":"GGPS MEHMOOD CHIMNA","34210709":"GMPS SAMAN PINDI","34210730":"GGES THATHA POUR","34210816":"GGPS SADHARY","34210843":"GGES PAKHOWAL","34210675":"GGPS DHARO KOT","34210679":"GMPS KHOKHER GHERBI","34210699":"GGES MUND","34210700":"GGPS DUDRAH GHARBI","34210793":"GGES SERVICE INDUSTRY","34210832":"GMPS SAHAN WAL","34210841":"GGPS QADIR COLONY","34210844":"GMPS REHMANIAN","34210863":"GMPS SHEIK SUKHA","34211072":"GGPS SAROKI","34210141":"GGES KUNG BUDDHA","34210518":"GMPS MAHROOF","34210519":"GMPS RAMBRIAN WALA","34210530":"GCMPS RASOOL PUR","34210537":"GMPS KAINT","34210552":"GGCMPS MOJOKI","34210561":"GGCMES KASSOKI","34210563":"GGPS KULA CHOUR NO. 1","34210565":"GGPS NAI ABADI J.P.Jattan","34211054":"GGPS CPC NO. 2 JALALPUR JATTAN","34210270":"GPS ISLAMIA NO.1 JALAL PUR JATTAN","34210276":"GPS SHAHBAZ PUR","34210278":"GPS MEHMOOD ABAD","34210298":"GPS MANGOWAL EAST","34210302":"GPS ABADI BODHRAG","34210880":"GPS DHOK MUSTFA ABAD","34211006":"GES CPC NO. 2 JALALPUR JATTAN","34211064":"GPS CPC NO. 3 JALALPUR JATTAN","34210504":"GGCMS KULA CHOUR NO.2","34210505":"GGES NEW NOSHARA","34210506":"GGES CHRISTIAN JALAL PUR JATTAN","34210525":"GMPS CHAK DHILO","34210532":"GGPS KOT MIR HUSSAIN","34210542":"GGPS KOT RANJAH","34210543":"GMPS KOTLA SOHIAN","34210546":"GGPS BHARAJ","34210560":"GGCMPS BHAGOWAL KHURD","34210568":"GGPS WARAICHAN WALA","34210570":"GGES RANEWAL SAYYADAN","34210571":"GGPS KULA CHOUR NO. 2","34210109":"GES CHAK MANJUN","34210121":"GES IKHLAS GARH","34210222":"GPS HANJRA","34210239":"GPS LORAI","34210240":"GES JAMAL PUR","34210267":"GPS GHUMAN","34210269":"GPS ISLAMIA NO.2 JP JATTAN","34210271":"GPS TALEEM-UD-DIN J.P.JATTAN","34210279":"GPS RANEWAL SAYEDAN","34210301":"GPS MAJRA","34210488":"GPS KARIM DAD","34211005":"GPS CPC NO. 1 JALALPUR JATTAN","34210147":"GGES SHAHBAZ PUR","34210507":"GMPS ISLAM GARH","34210509":"GGPS BHAKOKY","34210523":"GGPS MANDHALA","34210527":"GMPS RASIDA","34210528":"GGPS NOORA","34210557":"GMPS KOT NIKKA","34210558":"GMPS GILI WALA","34211060":"GGPS BABAY DA LAHORE","34210122":"GES BHAKOKI","34210125":"GES NOORA MANDHALA","34210210":"GPS CHAK MERO","34210221":"GPS SOOK KHURD","34210224":"GPS CHAK BHOOLA","34210228":"GPS GILLAN WALA","34210229":"GPS KOT BAGHOLA","34210230":"GPS KHARIAN WALI","34210274":"GPS BAWARAN WALA","34210294":"GPS SOHAL KHURD","34210182":"GGES CHAK KALA","34210522":"GMPS SOHAL KALAN","34210526":"GMPS PINDI MIANI","34210533":"GMPS MOHALLA LANGRIAN","34210540":"GGPS CHANDAR","34210556":"GGPS LADHA","34210567":"GGPS LADHA SADHA","34210787":"GMPS JEOWANJAL","34210508":"GGPS MOH SADHU","34210514":"GGPS CHANGAN WALI ARIAN","34210517":"GGPS KHEWA","34210520":"GMPS HAYAT GARH","34210535":"GGES THIMKA","34210539":"GMPS NAND PUR","34210562":"GGCMS ALAM GARH","34211053":"GGPS CPC NO. 1 JALAL PUR JATTAN","34210545":"GMPS NAFRIAN","34210548":"GMPS HAKIM PUR","34210551":"GMPS PIR HARA","34210553":"GMPS DHOOL KALAN","34210757":"GMES CHODO WAL","34210323":"GPS KARIAN WALA","34210342":"GPS KOANKH","34210346":"GPS KHATANA","34210356":"GPS RANG PUR","34210357":"GPS PERSOWAL","34210359":"GPS BOUCH","34210364":"GES KALAS","34210576":"GMPS GHURAL","34210584":"GGPS KOANKH","34210587":"GGPS MALKI","34210591":"GGES RUPOWAL","34210593":"GGPS KOLIAN HASHIM SHAH","34210595":"GGPS NANO HANDA","34210601":"GGPS PARSOWAL","34210602":"GGES BHOOCH","34210606":"GGPS MALO WAL","34210611":"GGES DHAMTHAL","34210544":"GMPS BHOIAN","34210126":"GES KOT RANJAH","34210297":"GPS THIMKA","34210310":"GPS JHAMAT NEW ABAD","34210325":"GPS JINDER KHURD","34210904":"GPS CHAK SHAMAS","34210151":"GGES BHUNGRAN WALA","34210582":"GGCMS KALAS","34210615":"GGPS MAJRA SHAMALI","34210616":"GMPS GHAIAN","34210352":"GPS BHANGRAN WALA","34210354":"GPS MEHLU","34210361":"GPS MAJRA SHAMALI","34210363":"GES BHOJ PUR","34210391":"GPS CHAK MIRAN","34211049":"GPS CHACHIAN (TANDA)","34210577":"GGPS MULL","34210583":"GMPS KHAN PUR KHOKHAR","34210594":"GGPS LAHORIAN","34210596":"GGPS SHAH JAHANIAN","34210603":"GGES GHEERERA","34210618":"GMPS DOKHUHA","34210625":"GGES BHARWAL","34210136":"GES DHARORKY","34210415":"GPS DALIA","34210419":"GES CHAKORI BHEKHOKE","34210430":"GPS MANGOWAL PURANA","34210457":"GPS KOT SHAMAS","34211052":"GPS SHAH RODU","34210164":"GGES KHANWALI","34210666":"GGES CPC KUNJAH NO.2","34210667":"GGPS KUNJAH NO.3","34210695":"GGPS NAGERIAN WALA","34210705":"GGES KANG CHANAN","34210707":"GMPS KIRANWALA KHAS","34210716":"GMPS GAGE KEY","34210724":"GGCMS KUNG SOHARI","34210735":"GGES KOT MUTTA","34210737":"GGES JAMO BOLA","34210740":"GMPS DUMANIANWALI","34210983":"GGPS SHAH JAHANIAN","34210173":"GGES DALIA","34210683":"GGES DHAROWAL","34210693":"GMPS CHOKARA","34210696":"GGCMES MUSA KATHANA","34210701":"GMES KAHNA","34210708":"GGES CHAKRIAN","34210710":"GMPS SADDOKI","34210717":"GMPS ISHRA","34210723":"GGCMS GOLAKI","34210979":"GMPS KUNJARI","34210135":"GES THRIKHA","34210139":"GES CHAKRIAN","34210236":"GPS AHMEDIA SHADIWAL","34210407":"GES MAJRA","34210420":"GPS CHAK DHILLU NO.2","34210422":"GPS JASSOKI","34210423":"GPS KOT QUTAB DIN","34210424":"GPS DHARO WALA","34210432":"GPS LANGAY","34210171":"GGES TARIKHA","34210668":"GGES QASIM ABAD (CHOHA MAL)","34210674":"GGPS CHAKORI BHAKHO","34210677":"GMPS SHADIWAL POWER HOUSE","34210685":"GGES KHONAN GHERBI","34210686":"GGES TALI SAHAB","34210702":"GMPS JABBOKI","34210703":"GGES KOT QUTAB DIN","34210704":"GGCMS LADHA","34210725":"GGCMS MAJRA SHAREEF","34210728":"GMPS CHAK CHOUDO","34210734":"GMPS CHOOKNAN WALI","34210738":"GMPS CHAK BAIGA","34210438":"GPS JAMUN BOLA","34210439":"GPS JULLIANI","34210441":"GPS JHANGIR PUR","34210444":"GPS KANG SAHALI","34210930":"GPS KOT KANA","34210251":"GPS CHANNI HAFIZ","34210257":"GPS DEONA","34210262":"GPS BANIAN","34210405":"GPS PUBLIC KUNJAH","34210450":"GPS NAGIRAN WALA","34210461":"GES MACHIANA","34210465":"GPS CHAK PINDI","34210469":"GPS SAROKI","34211002":"GES QAZI CHAK","34210001":"GHSS PUBLIC KUNJAH","34210002":"GHSS TANDA","34210003":"GHS ZAMINDAR GUJRAT","34210004":"GHS COMPREHENSIVE GUJRAT","34210005":"GHS MUSLIM GUJRAT","34210006":"GHS CHRISTIAN GUJRAT","34210007":"GHS ISLAMIA GUJRAT","34210008":"GHS PAK ISLAMIA SHADIWAL","34210009":"GHSS KATHALA CHENAB","34210010":"GHS NAROWALI","34210011":"GHS LAKHAN WAL","34210012":"GHS MOIN UD DIN PUR","34210013":"GHS SHEIKHPUR","34210014":"GHS MILAT BEOWALI","34210015":"GHS RA.MADINA","34210016":"GHS DITTEWAL","34210017":"GHS PUBLIC NO.2 GUJRAT","34210018":"GHS ISLAMIA NO.1 JALALPUR JATTAN","34210019":"GHS ISLAMIA NO.2 J.P.JATTAN","34210020":"GHS PUBLIC NO. 1","34210021":"GHS TALEEM-UD-DIN J.P.JATTAN","34210022":"GHS ISLAMIA CHHANI DEONA","34210023":"GHS BHAGOWAL KHURD","34210024":"GHS ISLAMIA CHOPALA","34210025":"GHS ALAMGARH","34210026":"GHS THATTA MUSA","34210027":"GHS BAKHRI WALI","34210028":"GHS KARIAN WALA","34210029":"GHS HAJIWALA","34210030":"GHS CHAK KAMALA","34210031":"GHS HAZARA MUGHLAN","34210032":"GHS JALAL PUR SOBTIAN","34210033":"GHS MALIK PUR MIRZA","34210034":"GHS AJNALA","34210035":"GHS AWAN SHARIF","34210036":"GHS PERO SHAH","34210037":"GHS FATEH PUR","34210038":"GHS PUBLIC BHAGOWAL KALAN","34210039":"GHS BEHLOLPUR","34210040":"GHS MEMORIAL ISL SHAMPUR KHOKHRA","34210041":"GHS KOTLI BHAGWAN","34210042":"GHS BARU","34210043":"GHS SAGGAR","34210044":"GHS BARILA SHARIF","34210045":"GHS ISLAMIA KUNJAH","34210046":"GHS NATIONAL SAROKI","34210047":"GHS JHEURAN WALI","34210048":"GHS RIZVIA LANGAY","34210049":"GHS QASIM ABAD","34210050":"GHS GAKHRA KALAN","34210051":"GHS KANG CHANNAN","34210052":"GHS MANGOWAL WEST","34210053":"GHS LADHA SADHA","34210054":"GHS CHAK SADA","34210055":"GHS SOOK KALAN","34210056":"GHS THATTA POUR","34210057":"GHSS GOLEKI","34210058":"GHS MACHIWAL","34210059":"GHS CHECHIAN","34210060":"GHS GANDRA KALAN","34210061":"GHS MAKIANA","34210062":"GHS MALHU KHOKHAR","34210063":"GHS DAULAT NAGAR","34210066":"GGHS MISSION GUJRAT","34210067":"GGHS IKHLAS GARH","34210068":"GGHS DOULAT NAGAR","34210069":"GGHS KUNJAH","34210070":"GGHS MISS.F.J.M.B. GUJRAT","34210071":"GGHSS KARIAN WALA","34210072":"GGHS CHAK KAMALA","34210073":"GGHS HAJI WALA","34210074":"GGHS LANGAY","34210075":"GGHS MOIN UD DIN PUR","34210076":"GGHSS SOHAL KHURD","34210077":"GGHS MALIK PUR CHARA","34210078":"GGHS BHAGOWAL KALAN","34210079":"GGHS JAVAID GUJRAT","34210080":"GGHS JALAL PUR JATTAN","34210081":"GGHS MANGOWAL GHARBI","34210082":"GGHSS GOLAKI","34210083":"GGHS ISLAMIA MADINA","34210084":"GGHS LAKHAN WAL","34210085":"GGHS AJNALA","34210086":"GGHS THATTA MUSA","34210087":"GGHS ISLAMIA KUNJAH","34210088":"GGHS SAROKI","34210089":"GGHS JHEURAN WALI","34210090":"GGHSS TANDA","34210091":"GGHS KEERAN WALA SYEDAN","34210092":"GGHSS MODEL GHARIB PURA GUJRAT","34210093":"GGHS DAB FATIMA-TU-ZAHRA GUJRAT","34210094":"GGHS SULTAN BUKISH GUJRAT","34210095":"GGHS MISS FEROZ-UD-DIN ISLAMIA GUJRAT","34210096":"GGHS SHAH HUSSAIN GUJRAT","34210097":"GGHS KAMLI WALA GUJRAT","34210098":"GGHS MUSLIM PARDA GUJRAT","34210099":"GGHS ISLAMIA J.P.JATTAN","34210100":"GGHS SHAHDIWAL","34210101":"GGHS MACHIWAL","34210102":"GGHSS DEONA","34210103":"GGHS SOOK KALAN","34210104":"GGHS SABOWAL","34210105":"GGHSS KATHALA CHINAB","34210107":"GHS FEROZE ABAD","34210108":"GHSS MODEL (ATTACH WITH QAED) GUJRAT","34210110":"GHS RAWALKEY","34210111":"GHS GORALI","34210112":"GHS QILA DAR","34210113":"GHS LUND PUR","34210115":"GHS MADINA","34210116":"GHS HARIA WALA","34210117":"GHS KHEPRAN WALA","34210118":"GHS KOT MIR HUSSAIN","34210119":"GHS KOTLI KOHALA","34210120":"GHS DHILLU SHARQI","34210123":"GHS NOSHERA KHAWAJGAN","34210127":"GHS SANTAL","34210128":"GHS MALKI","34210131":"GHS QILA SOORA SINGH","34210133":"GHS KEERANWALA","34210134":"GHS MUSA KHATANA","34210137":"GHS MAND","34210138":"GHS KHOJIAN WALI","34210140":"GHS CHANDALA","34210142":"GGHS MEHMOOD ABAD","34210143":"GGHS ALAM GARH (UPGRADED)","34210144":"GGHS BHAGOWAL KHURD","34210146":"GGHS BEHAL PUR","34210148":"GGHS CHOPALA","34210149":"GGHS AWAN SHARIF","34210150":"GGHS JALAL PUR SOBTIAN","34210152":"GGHS PERO SHAH","34210154":"GGHS HAZARA MUGHLAN","34210155":"GGHS BAKHRI WALI","34210157":"GGHS SANTAL","34210158":"GGHS SURKHPUR","34210159":"GGHS BARILA SHARIF","34210161":"GGHS MARRI KHOKHRAN","34210165":"GGHS DALI BANTH","34210166":"GGHS KOT ALAH BUKSH","34210167":"GGHS CHAK PINDI","34210168":"GGHS MODEL SHADIWAL","34210169":"GGHS GAKHRA KALAN","34210170":"GGHS MACHIANA","34210172":"GGHS JASSOKI","34210174":"GGHS BAIGA","34210175":"GGHS FATEH PUR","34210176":"GGHS DOGA","34210177":"GGHS CHANDALA","34210178":"GGHS GANDRA KALAN","34210180":"GGHS NAROWALI","34210181":"GGHS MEHMDA","34210183":"GGHS DHERO GHUNA","34210184":"GGHS GILLAN WALA","34210185":"GGHS SHEIKPUR","34210186":"GGHS LORAI","34210188":"GGHS CHAK SADA","34210189":"GGHS BEOWALI","34210190":"GGHS CAPT JAWAD SHAEED KALRA KALAN","34210191":"GGHS FEROZE ABAD GUJRAT","34210192":"GGHS GORALI","34210193":"GGHS HARIA WALA","34210194":"GGHS PHULARWAN","34210195":"GGHS TIBBI GORIAN","34210203":"GHS JATTOWAKAL","34210206":"GHS KALARA KALAN","34210241":"GHS SHADIWAL","34210541":"GGCMHS KOTLI KOHALA","34210566":"GGHS MANGOWAL SHARQI","34210617":"GGCMHS BARU","34210671":"GGHS ISLAM NAGAR","34210678":"GGCMHS RAJEKY","34210713":"GGHS KHOJIAN WALI","34210720":"GGHS DARIA KATHANA","34210727":"GGHS ADOWAL","34210742":"GGHS KANG SAHALI","34210749":"GGHS MAKIANA","34210756":"GGHS GHANSIA","34210758":"GGHS MALHU KHOKHAR","34210820":"GGHS SUGHRAH BEGUM","34210969":"GGHS MUNCIPAL MODEL JALALPUR JATTAN","34210970":"GGHS MUNCIPAL MODEL AKRAM ALI KHAN ROAD","34210971":"GHS MUNCIPAL GUJRAT","34211007":"GHS NAGRIAN WALA","34211051":"GGHS MADRAS TUL BINNAT SHISHANWALA GATE GUJRAT","34211071":"GGHS MALIK PUR KHURD","34299992":"QAED Gujrat","34210156":"GGES CHAK MIRAN","34210634":"GMPS GEGIAN","34210638":"GGPS HASSAN DHEENDA","34210639":"GGPS JHAMAT ABAD","34210640":"GMPS WAZID","34210641":"GGPS PAJOKI","34210653":"GMPS SHAH JAHNI","34210654":"GMPS CHAK SHERO","34210665":"GMPS RANDEER KHOKHRAN","34210976":"GGPS KOTHAY JATTAN","34211065":"GGPS SANGO","34210374":"GPS MOTA","34210375":"GES RANGRA","34210379":"GPS SANGO","34210382":"GPS REHAN","34210384":"GES PAJOKI","34210387":"GPS MEINOWAL","34210388":"GPS BHELOWAL","34210392":"GPS JHAMAT ABAD","34210399":"GPS TANDA","34210906":"GPS DABB","34210160":"GGES SHAMPUR KHOKHRAN","34210646":"GGES KOTLY BAGHWAN","34210649":"GGPS KURRI SHARIF","34210650":"GGPS BEHLOLPUR","34210655":"GMPS DHARIWAL","34210656":"GMPS BUDDAN","34210659":"GGPS SHEIKH ALIKAY","34210124":"GES NATT SHARQI","34210132":"GES BHAGOWAL KALAN","34210272":"GES KHASA","34210283":"GPS KASSOKE","34210285":"GPS RAMKEY","34210385":"GPS RANGAN WALA","34210396":"GES KURI SHARIF","34210397":"GPS SHAM PUR","34210401":"GPS GUJGRAN","34210910":"GPS BAGOWAL KALAN","34210620":"GMPS HUNJ","34210632":"GMPS CHAK BAGGA","34210636":"GGES SAGGAR","34210637":"GGPS CHACHIAN","34210642":"GMPS KAKIAN WALA","34210643":"GGPS HADKA","34210644":"GMPS MATIAN WALA","34210645":"GGPS MADAN","34210648":"GMPS NAJAN","34210663":"GGPS MOOTA","34210981":"GGPS CHAK BAZURG","34220132":"GGES DINGA","34220133":"GGES KOLIAN SHAH HUSSAIN","34220524":"GGPS DINGA NO.3","34220526":"GGPS CHAK NO. 35","34220532":"GGPS BLASRANWALA","34220533":"GGPS DINGA NO.2","34220534":"GGPS RAILWAY STATION DINGA","34220547":"GGPS BHAGI PURA DINGA","34220086":"GES DINGA MAIN","34220090":"GES PUNJAN SHAHANA","34220251":"GPS RAILWAY COLONY 2 DINGA","34220264":"GPS DHANDALI","34220265":"GPS RAILWAY COLONY NO.1 DINGA","34220266":"GPS NABI PURA DINGA","34220269":"GES KHOKHRA","34220271":"GES SHAH QULLI","34220281":"GES FATTA BHAND","34220286":"GPS BAKNA WALA","34220289":"GPS DHULYAN","34220291":"GES BHALESRAN WALA","34220300":"GPS JAMIA ISLAMIA DINGA","34220255":"GPS BAKNA WALI","34220259":"GES KHOJA","34220274":"GPS BAGARIAN WALA","34220278":"GPS KALUSAHI KHURD","34220292":"GPS TAPIALA","34220301":"GES CHHIMA","34220304":"GES RAKH KOLAN","34220374":"GMPS GURDAN WALA","34220499":"GGPS BAKNA WALA","34220502":"GMPS POURANWALA","34220504":"GGES FATEH BHAND","34220509":"GGPS CHAK JANI KALAN","34220516":"GMPS SAMAIALA","34220546":"GGPS NABI PURA DINGA","34220500":"GGPS RANDHEER","34220503":"GMES CHIMBER","34220506":"GGPS NOOR JAMAL","34220521":"GMPS BAJARWALA","34220522":"GGPS DHANDALI","34220523":"GGPS DHULIAN","34220527":"GGPS YAQEEN PUR","34220089":"GES KOLIAN SHAH HUSSAIN","34220199":"GPS RANIAN","34220290":"GPS CHAK MIANA SHEIK SHARI","34220298":"GES TRAROWALA","34220303":"GPS MATUAN WALA","34220728":"GPS CHAKORY BEHLOWAL","34220737":"GPS BUGHNA","34220131":"GGES TAPIALA","34220135":"GGES DHAKRAN WALI","34220277":"GGES FATALAMA","34220510":"GGPS CHAK MEHMOOD","34220530":"GMPS DHOOP SARI","34220537":"GGPS TOPA ADAM","34220543":"GGES SHERGARH","34220548":"GGES WARACHANWALA","34220781":"GGPS THEKRIAN MONIAN","34220076":"GES HANJ","34220226":"GPS CHAK SIKANDAR","34220233":"GPS FARUKH PUR","34220235":"GPS SAMRALA","34220236":"GES BANIAN","34220238":"GPS HASSAN PATHAN","34220239":"GPS MURARIAN","34220241":"GPS KAKRALI","34220248":"GPS JAKHAR","34220696":"GPS LADIAN 1","34220719":"GPS SADIQ ABAD","34220114":"GGES SAMRALA","34220127":"GGES MACHHORA","34220385":"GGES SARSAL","34220441":"GMPS JANDALA","34220445":"GGPS KOTLA ARAB ALI KHAN","34220446":"GGPS REHSIAN","34220448":"GGPS MIR HUSSAIN KAKRALI","34220452":"GGPS MIAN CHOHAN","34220472":"GGES BANIAN","34220473":"GGPS BAZURAGWAL","34220480":"GMPS BIR KHARANA","34220482":"GGPS NANDWAL","34220483":"GMPS SADU LANGAR","34220490":"GMPS ROLLIA","34220119":"GGES UMARPUR","34220121":"GGES KALU CHAK","34220430":"GMPS CHAK FAZAL","34220434":"GGES JAGGAL","34220443":"GGCMES CHIRIANWALA ADHA","34220444":"GGPS LANGRIAL NO.2","34220447":"GGPS ADAM CHOHAN","34220450":"GMPS PHARAY","34220453":"GGES MATHANA CHAK","34220454":"GMPS SHEIKHPUR","34220465":"GGPS SHAMPUR","34220466":"GMPS QUTAB GOLRA","34220484":"GGES BAHATIAN CHIBBIAN","34220496":"GMPS KHAIR KATOO SONTRA","34220433":"GGPS ACHH","34220455":"GMPS PINDI KHOKHRAN","34220456":"GGPS ASSAR","34220459":"GGPS PLAHGRAN","34220120":"GGES BANGIAL","34220382":"GGPS SAKA","34220383":"GGPS CHOUR CHAK","34220442":"GGPS CHAK SIKANDAR","34220475":"GGPS SAHN KALAN","34220479":"GGPS ROPAIRI","34220486":"GGPS SAHAN KHURD","34220436":"GMPS BUTTOR","34220438":"GMPS KATWAR","34220461":"GGPS BASOHA","34220462":"GMPS KHARANA PIRGHAZI","34220463":"GGPS KOHLI","34220464":"GMPS BHATTI","34220467":"GGPS UODHA","34220468":"GGES HANJ","34220469":"GGPS JAKHAR","34220470":"GMPS CHAKORA","34220471":"GMPS SOMBRI","34220349":"GGES KHARIAN NO.2","34220350":"GGPS KHARIAN NO.4","34220351":"GGPS KHARIAN NO.3","34220352":"GGPS THAPLA","34220379":"GGPS BERONE COMMITTEE KHARIAN NO.6","34220073":"GES BEGA MEHRAJ PUR","34220149":"GPS TALIM UL QURAN KHARIAN","34220151":"GPS NO.2 KHARIAN","34220167":"GPS SEHNA","34220168":"GPS LADHER","34220170":"GPS BIDDER MARJAN","34220174":"GES DOGA","34220175":"GES GOLRA HASAM","34220194":"GPS AQIQA","34220642":"GPS CHAK LASHKARI","34220102":"GGES SHORIAN","34220109":"GGES BIDDRMURJAN","34220348":"GGPS KUNJAL","34220359":"GMPS PIARA","34220081":"GHS SADWAL KALAN","34220083":"GES MACHHORA","34220084":"GES SARSALA","34220217":"GPS JAGAL","34220219":"GPS SAKA","34220223":"GPS ROPARI","34220227":"GPS SOUNTRA","34220384":"GGPS MARJAN","34220389":"GGPS AQIQA","34220391":"GMS COUHDHARY MEHDI KHAN DHILU SHARIF","34220425":"GGCMS PUNJAN KASANA","34220567":"GMPS DALLAH","34220568":"GGPS THEKARIAN","34220569":"GMPS ALI CHAK","34220582":"GGPS CHAK RAJADI","34220347":"GGPS MALWANA","34220365":"GMES UTTAM","34220371":"GGES NOONANWALI","34220372":"GGPS BHAGO","34220373":"GGCMS KHUNAN","34220394":"GGES CHAK SIKANDAR NO.30","34220070":"GES CHAK BAKHTAWAR","34220079":"GES BANGIAL","34220156":"GPS SADKAL","34220164":"GPS MANGLIA","34220166":"GES SAINTHAL","34220177":"GPS THATHA RAI BAHADUR","34220211":"GES RATHORI","34220215":"GPS MANDHAR","34220147":"GMPS SADWAL BRAHMNAN","34220399":"GGPS RASUL PUR","34220401":"GMPS LEHRI","34220403":"GMPS HASSAM","34220405":"GGES JAND SHARIF","34220406":"GMPS DADU BARSALA","34220412":"GGES PALAWERI","34220417":"GGPS MALAGAR","34220418":"GGPS TERO CHAK","34220106":"GGES KULAK","34220355":"GGES DHALKAKA","34220357":"GGPS NASEERA","34220407":"GGPS GOLRA HASHAM","34220408":"GGPS KOTLI BAJAR","34220410":"GGPS CHAK BUKHTAWAR","34220414":"GGEMS SANTHAL","34220416":"GGPS JHANTLA","34220419":"GGPS BAGHANWALA","34220420":"GMPS DAHLL KHAIR","34220421":"GGES CHACHIAN","34220422":"GGES BEGA MEHRAJ PUR","34220423":"GGPS CHAK KAMAL","34220139":"GGES KULEYWAL SYEDAN","34220558":"GGCMS CHAK SARWANI","34220560":"GGPS PURANA LALA MUSA","34220612":"GGES KHAWASPUR","34220773":"GGPS MC NO. 1 LALA MUSA","34220775":"GGPS MC SIR SYED JUNIOR MODEL NO. 3 LALA MUSA","34220778":"GGPS MC NO. 2 KARIM PURA LALAMUSA","34220779":"GGPS MC NO. 7 MUHAMMAD PURA","34220784":"GGPS AZAM NAGAR LALAMUSA","34220808":"GGES MC JINNAH MODEL LALA MUSA","34220398":"GMPS CHAK SAKANDAR NO.53","34220559":"GGPS MUGHLIAN WALI","34220588":"GGPS RUKHDAND","34220596":"GGPS SHAH SIR MUST","34220597":"GGCMS CHAK DINA","34220602":"GGES SAIDA BRAHIM","34220603":"GMPS SUKCHANA","34220616":"GGES KARNANA","34220618":"GGCMS GHURCCO","34220801":"GMPS DHOLA","34220572":"GGES ISLAM PURA","34220578":"GGES DHEENDA","34220579":"GGPS MUNDIR","34220580":"GGPS BOSAL SHARIF","34220581":"GGES KHUNI CHAK (CHAK MURTAZA)","34220594":"GGPS VEROWAL","34220601":"GMPS WHAND","34220091":"GES RAILWAY COLONY LALA MUSA","34220094":"GES KOTLA SARANG KHAN","34220309":"GES MIANA CHAK","34220313":"GPS VEROWAL","34220324":"GPS BUDHO KALAS","34220326":"GES KOTLA QASIM KHAN","34220327":"GPS PASWAL","34220333":"GES SEEDA BRAHM","34220334":"GES KAMLA BHAND","34220339":"GPS SHAHSARMUST","34220340":"GPS KULLEWAL SYEDAN","34220342":"GPS DHENDA","34220771":"GES BEHARI COLONY LALA MUSA","34220772":"GPS MC LALA MUSA NO. 2","34220774":"GPS MC EID GAH ROAD LALA MUSA","34220093":"GES CHAK SARWANI","34220095":"GES CHAK DINA","34220157":"GPS DHER","34220159":"GES HAIL","34220208":"GPS BAN KALAS","34220319":"GPS PULLAH","34220337":"GPS JAT RIA KALAN","34220338":"GES CHAK RAJADI","34220625":"GPS HAKLA","34220137":"GGES KOTLA SARANG KHAN","34220138":"GGES PASWALL","34220563":"GGCMS KOTLA SARRNG KHAN","34220564":"GGCMS CHANU BHOJA","34220595":"GGES THURGLA","34220606":"GMPS BHOLA","34220608":"GMPS PALL","34220561":"GMPS QAZI AMAM SHAH","34220566":"GMPS JHANDY WALI","34220570":"GGCMS SHAH JAHANIAN","34220573":"GMPS MAIKAN SHARIF","34220575":"GMPS MIRDAH","34220584":"GGPS CHAKORI SHER GHAZI","34220598":"GGPS KAMLA BHAND","34220599":"GMPS LOSAR","34220613":"GMPS MURARIAN","34220614":"GMPS GILL","34220088":"GES RANDHEER","34220160":"GPS CHAK SIKANDAR","34220187":"GPS KOLIAN HABIB","34220191":"GPS MANDIR NO.1","34220188":"GES BHAHO GHASIT PUR","34220202":"GPS BARNALI","34220282":"GES CHANNAN","34220666":"GPS OJHRIAN","34220815":"GPS MEHNWAL","34220001":"GHS DINGA","34220002":"GGHS KHARIAN NO. 1","34220003":"GGHS KOTLA ARAB ALI KHAN","34220004":"GHS KHARIAN","34220005":"GHS TALEEM UL QURAN KHARIAN","34220006":"GHS BHADDAR","34220007":"GHS GANJA","34220008":"GHS NINDOWAL","34220009":"GHSS AMRA KALAN","34220010":"GHS KHORI ALAM","34220011":"GHS CHAK MIANA BHERGRAN","34220012":"GHS SEEKARIALI","34220013":"GHS KARNANA","34220014":"GHSS GULIANA","34220015":"GHS ISLAMIA MALKA","34220016":"GHS RARIALA","34220017":"GHS BHAGWAL","34220018":"GHS TECHNICAL PUNJAN KISSANA","34220019":"GHS BAHARWAL","34220020":"GHS DHING","34220021":"GHS ISLAMIA BARNALI","34220022":"GHS DILAWAR PUR","34220023":"GHS SEHNA","34220024":"GHS MIRZA TAHIR","34220025":"GHS JOURA KARNANA","34220026":"GHS ISLAMIA DHORIA","34220027":"GHS DHUNNI","34220028":"GHS JANDANWALA","34220029":"GHS MOHRI SHARIF","34220030":"GHS N.H.A.S BHURCHH","34220031":"GHS BHOTA","34220032":"GHS NAGRIAN","34220033":"GHS GOCHH","34220034":"GHS LANGRIAL","34220035":"GHS SARRIA","34220036":"GHS KAKRALI","34220037":"GHS ISLAMIA BAZURGWAL","34220038":"GHS TALEEM ISLAM MURARIAN DT.GUJRAT","34220039":"GHS MUSLIM TAPIALA","34220040":"GHS CHAKORI BHELOWAL","34220041":"GHS DHAKRAN WALI","34220042":"GHS GHAUSIA LALA MUSA","34220043":"GHS PAKISTAN LALA MUSA","34220044":"GHS MODEL LALA MUSA","34220045":"GHS TALIM UL ISLAM KHARIAN","34220046":"GHS ISLAMIA LALA MUSA","34220047":"GHS THEEKRIAN","34220048":"GHS THEKRIAN MONIAN","34220049":"GHS CHHOKAR KALAN","34220050":"GGHS KHARIAN NO. 2","34220051":"GGHS DHORIA","34220052":"GGHS BHAGWAL","34220053":"GGHS PINDI HASHAM","34220054":"GGHS DOGA","34220055":"GGHS MANGLIA","34220056":"GGHS SEHNA","34220057":"GGHS JOURA KARNANA","34220058":"GGHSS THATHA RAI BAHADUR","34220059":"GGHS WAZIRAKHAN BAZURGWAL","34220060":"GGHS SIDH","34220061":"GGHSS SARRIA","34220062":"GGHSS BHADDAR","34220063":"GGHS DINGA","34220064":"GGHS CHANNAN","34220065":"GGHS LANGRIAL","34220066":"GGHS PINDI SULTAN PUR","34220067":"GGHS SHAMIM LALA MUSA","34220068":"GGHS M.B.LALAMUSA","34220069":"GGHS PANJAN KASANA","34220071":"GHS TEHAL","34220072":"GHSS GOTERIALA","34220075":"GHS KARARI WALA KALAN","34220077":"GHS SIDH","34220078":"GHS SABOUR","34220080":"GHS KHARANA","34220082":"GHS CHIRYA WALA","34220085":"GHSS KOTLA ARAB ALI KHAN","34220087":"GHS TOPA USMAN","34220092":"GHS KHAWAS PUR","34220096":"GGHS BAHARWAL","34220097":"GGHSS GULIANA","34220098":"GGHS MALKA","34220099":"GGHS MURALA GUJRAN","34220100":"GGHS GOTERYALA","34220101":"GGHS JANDANWALA","34220103":"GGHS RARIALA","34220104":"GGHS KARARI WALA KHURD","34220105":"GGHS MIRZA TAHIR","34220107":"GGHS SANATPURA","34220108":"GGHS MANDIR","34220110":"GGHS BARNALI","34220111":"GGHS BHOURCHH","34220112":"GGHS SABOUR","34220113":"GGHS BHOTA","34220115":"GGHS SADWAL KALAN","34220116":"GGHS GOACHH","34220117":"GGHS CHIRIANWALA","34220118":"GGHS HASSAN PATHAN","34220122":"GGHS KHARANA","34220123":"GGHS DILAWAR PUR","34220124":"GGHS KAKRALI","34220125":"GGHS NAGRIAN","34220128":"GGHS LADIAN","34220129":"GGHS KHORI ALAM","34220130":"GGHS BAGRIAN WALA","34220134":"GGHS SEEKARIALI","34220136":"GGHS MIANA CHAK","34220140":"GGHS GANJA","34220141":"GGHS JATRIA KALAN","34220142":"GGHS KOTLA QASIM KHAN","34220143":"GGHS BHELOT MAKHDOOM","34220144":"GGHS CHACHIAN","34220145":"GGHS DULLAN WALA","34220146":"GGHSS NINDOWAL","34220272":"GHS CHAK JANI KALAN","34220273":"GHS NOOR JAMAL NORTH","34220363":"GGHS DUNNI","34220451":"GGHS MURARIAN","34220511":"GGHS AMRA KALAN","34220555":"GGHS RAJU BHAND","34220591":"GGHSS CHAKORI BHELWAL","34220770":"GGHS MATWANWALA","34220780":"GGHS NAWAZ SHARIF LALA MUSA","34220782":"GGHS KHUNAN","34220800":"GHSS MODEL (ATTACH WITH QAED (M) LALAMUSA)","34220805":"GGHS MC SIR SYED LALA MUSA","34220806":"GGHS MOHARI SHARIF","34220809":"GGHSS Excellent (ATTACHED WITH QAED) LALAMUSA.","34220810":"GHS THUTHA RAI BAHADAR","34220811":"GHSS BAGIRAN WALA","34220812":"GHS KHUNAN","34220813":"GGHS TOQEER SHAHEED LALA MUSA (NEWLY EST)","34220818":"GGHS KOLIAN ROAD DINGA","34299991":"QAED female merged in (M) Lalamusa","34230107":"GGES CHAK GUNIAN","34230114":"GGPS KASTELA","34230115":"GGPS KHARKA","34230128":"GGPS CHAK NATHA","34230129":"GGPS THOON","34230130":"GGPS MAHY KHURD","34230131":"GMPS MEH KALAN","34230132":"GMPS KHAN PUR KHAMB","34230143":"GGPS GARRHA JATTAN","34230148":"GGPS KOTIAN","34230150":"GGPS JALIL PUR","34230151":"GGPS WAPDA COLONY SARA-I-ALAMGIR","34230024":"GES PIND AZIZ","34230040":"GES NO.1 SARAI ALAMGIR","34230041":"GES SARAI ALAMGIR NO.2","34230042":"GPS KOTIAN","34230044":"GES AURUNG ABAD","34230046":"GPS NOTHIA QURASHIAN","34230072":"GPS QAZI BAKAR","34230073":"GPS KANYAL","34230095":"GPS PHULARWAN","34230175":"GPS BAGH MOHALLAH","34230192":"GPS FAIZ PUR","34230194":"GPS TOOTIAN","34230213":"GPS DANDI MALIAR","34230029":"GGES SAADAT PUR","34230034":"GGES RASHID PUR","34230108":"GGPS RAJAR KALAN","34230116":"GGPS DHAL","34230118":"GGPS BANOHRA","34230119":"GGPS NOTHIA QURESHIAN","34230120":"GGPS KAKROT","34230121":"GGPS KHALL","34230123":"GMPS KHAN PUR GUJRAN","34230125":"GGPS BAWLI KHURD","34230134":"GGPS JAGGU","34230135":"GGPS QAZI BAQAR","34230234":"GGPS BAWALI KALAN","34230049":"GPS RAJAR","34230051":"GES BAWALI","34230052":"GPS DHOK KARYALA","34230060":"GPS BHAWANG","34230061":"GPS SAR DHOK","34230063":"GPS DANGHROOT (SOHAWA)","34230065":"GES PAHIRWAL","34230067":"GPS GURRAH JATTAN","34230068":"GPS KHOHAR","34230071":"GPS DHOK AMRAL","34230183":"GPS NARWAL","34230186":"GPS KHOHAR NO.1","34230031":"GGES BAISA MAIRA","34230037":"GGES DANDI NAZAM","34230106":"GGES KANARA","34230117":"GMPS MARI ANWAR PUR","34230133":"GMPS DHOK MURID","34230137":"GMPS DANDI RAJPUT","34230139":"GMPS BAISA KHURD","34230162":"GGPS GHORA HABIB","34230172":"GMPS CHAK QUAIM","34230048":"GPS GHIAL ZAREEN","34230084":"GES AIMA SHAHJI","34230086":"GPS PHAGLI","34230087":"GES SHEIKH PUR","34230097":"GES KANARA","34230204":"GPS GEHAL BALA","34230207":"GPS SOKAR","34230027":"GGES KHADRIALLA","34230033":"GGES PAHARWAL","34230112":"GGPS SAR DHOK","34230126":"GMES GADDI GHURRAH","34230127":"GMPS CHOA","34230145":"GMPS KHOHAR KHURD","34230147":"GGPS DHORI","34230149":"GGPS AURANG ABAD NO.1","34230152":"GGES DAK JATAN","34230153":"GMPS GORIAN","34230154":"GGPS BHAGU SHAH PUR","34230159":"GGPS POTHI MAHRA","34230160":"GGPS THILL","34230169":"GMPS BALO BANIA","34230171":"GGES MASOOM PUR KHURD","34230001":"GHSS KHOHAR","34230002":"GHSS THILL","34230003":"GGHSS SARAI ALAMGIR","34230004":"GHSS SARAI ALAMGIR","34230005":"GHS KHARKA KHADRIALA","34230006":"GHS QASBA KARIALY","34230007":"GHS SAADAT PUR","34230008":"GHS KARIALA","34230009":"GHSS ISLAMIA DANDI NIZAM","34230010":"GHS BULANI","34230011":"GHS BAISA KALAN","34230012":"GHS DAK CHIBBAN","34230013":"GHS BHAG NAGAR","34230014":"GHS PIR KHANA","34230015":"GHS PURAN","34230016":"GGHS SARAI ALAM GIR","34230017":"GGHS KHAMBI","34230018":"GGHS BHAG NAGAR","34230019":"GGHSS KHOHAR","34230020":"GGHS PURAN","34230021":"GGHS SHAKREELA","34230022":"GGHS DAK CHIBBAN","34230023":"GGHS BULANI","34230025":"GHS KHAMBI","34230026":"GHS MANDI BHALWAL","34230028":"GGHS KARYALA","34230030":"GGHS PIR KHANA","34230032":"GGHS GHIAL ZAREEN","34230035":"GGHS BAISA KALAN","34230038":"GGHS QASBA KARYALI","34230077":"GHS RASHID PUR","34230104":"GGHS SIMBLI","34230113":"GGHS BHAWANJ","34230142":"GGHS FATEH PUR","34230161":"GGMHS SHEIKH PUR DAKHLI","34230166":"GGCMHS BHALWAL GHARBI"};
+
+/* ============================================================
+   2. FIELD REFS
+   ============================================================ */
+const $ = id => document.getElementById(id);
+
+const BASE_QUALS = ["Matric","F.A / F.Sc","B.A","B.Sc"];
+
+/* -- uppercase enforcement -- */
+['teacherNameOnly','fatherNameOnly'].forEach(id=>{
+  $(id).addEventListener('input', e=>{
+    const pos = e.target.selectionStart;
+    e.target.value = e.target.value.toUpperCase();
+    e.target.setSelectionRange(pos,pos);
+    syncTeacherNameParentage();
+  });
+});
+
+/* Combine the two visible boxes into one "NAME D/O FATHER NAME" value —
+   this is the single value saved to the PDF and the Google Sheet. */
+function syncTeacherNameParentage(){
+  const name = $('teacherNameOnly').value.trim();
+  const father = $('fatherNameOnly').value.trim();
+  $('teacherNameParentage').value = (name && father) ? `${name} D/O ${father}` : '';
+}
+
+/* -- CNIC auto-formatting: 00000-0000000-0 -- */
+$('cnic').addEventListener('input', e=>{
+  let v = e.target.value.replace(/\D/g,'').slice(0,13);
+  let out = v;
+  if(v.length > 5) out = v.slice(0,5)+'-'+v.slice(5);
+  if(v.length > 12) out = out.slice(0,13)+'-'+out.slice(13);
+  e.target.value = out;
+});
+
+/* -- EMIS Code -> School Name lookup -- */
+$('emisCode').addEventListener('input', e=>{
+  const code = e.target.value.replace(/\D/g,'');
+  e.target.value = code;
+  const nameField = $('schoolName');
+  const helper = $('emisHelper');
+  if(!code){
+    nameField.value = '';
+    helper.textContent = 'Enter the school EMIS code to auto-fill the school name.';
+    helper.classList.remove('err');
+    return;
+  }
+  if(SCHOOLS[code]){
+    nameField.value = SCHOOLS[code];
+    helper.textContent = 'School found.';
+    helper.classList.remove('err');
+  } else {
+    nameField.value = '';
+    helper.textContent = 'EMIS code not found in the schools list — please double-check it.';
+    helper.classList.add('err');
+  }
+});
+
+/* -- Academic qualification conditional 2nd qualification + subject mode + Other text -- */
+function updateSubjectMode(){
+  const qual = $('highestQualification').value;
+  const textEl = $('highestSubject');
+  const selEl = $('highestSubjectBscSelect');
+  const otherEl = $('highestSubjectBscOther');
+  const helperEl = $('highestSubjectHelper');
+  if(qual === 'B.Sc'){
+    textEl.style.display = 'none';
+    selEl.style.display = '';
+    const showOther = selEl.value === 'Others';
+    otherEl.style.display = showOther ? '' : 'none';
+    helperEl.style.display = showOther ? '' : 'none';
+    syncHighestSubjectValue();
+  } else {
+    textEl.style.display = '';
+    selEl.style.display = 'none';
+    otherEl.style.display = 'none';
+    helperEl.style.display = 'none';
+    selEl.value = '';
+    otherEl.value = '';
+  }
+}
+function syncHighestSubjectValue(){
+  const selEl = $('highestSubjectBscSelect');
+  const otherEl = $('highestSubjectBscOther');
+  const textEl = $('highestSubject');
+  if($('highestQualification').value !== 'B.Sc') return;
+  textEl.value = (selEl.value === 'Others') ? otherEl.value : selEl.value;
+}
+$('highestSubjectBscSelect').addEventListener('change', ()=>{
+  const showOther = $('highestSubjectBscSelect').value === 'Others';
+  $('highestSubjectBscOther').style.display = showOther ? '' : 'none';
+  $('highestSubjectHelper').style.display = showOther ? '' : 'none';
+  if(!showOther) $('highestSubjectBscOther').value = '';
+  syncHighestSubjectValue();
+});
+$('highestSubjectBscOther').addEventListener('input', syncHighestSubjectValue);
+
+$('highestQualification').addEventListener('change', e=>{
+  const block = $('secondQualBlock');
+  const show = e.target.value !== '' && !BASE_QUALS.includes(e.target.value);
+  block.classList.toggle('show', show);
+  if(!show){
+    $('secondQualification').value='';
+    $('secondSubject').value='';
+    $('secondDivision').value='';
+    $('secondQualificationOtherField').style.display = 'none';
+    $('secondQualificationOther').value = '';
+    updateSecondSubjectMode();
+  }
+  const otherShow = e.target.value === 'Other';
+  $('highestQualificationOtherField').style.display = otherShow ? '' : 'none';
+  if(!otherShow) $('highestQualificationOther').value = '';
+  updateSubjectMode();
+});
+
+$('secondQualification').addEventListener('change', e=>{
+  const show = e.target.value === 'Other';
+  $('secondQualificationOtherField').style.display = show ? '' : 'none';
+  if(!show) $('secondQualificationOther').value = '';
+  updateSecondSubjectMode();
+});
+
+function updateSecondSubjectMode(){
+  const qual = $('secondQualification').value;
+  const textEl = $('secondSubject');
+  const selEl = $('secondSubjectBscSelect');
+  const otherEl = $('secondSubjectBscOther');
+  const helperEl = $('secondSubjectHelper');
+  if(qual === 'B.Sc'){
+    textEl.style.display = 'none';
+    selEl.style.display = '';
+    const showOther = selEl.value === 'Others';
+    otherEl.style.display = showOther ? '' : 'none';
+    helperEl.style.display = showOther ? '' : 'none';
+    syncSecondSubjectValue();
+  } else {
+    textEl.style.display = '';
+    selEl.style.display = 'none';
+    otherEl.style.display = 'none';
+    helperEl.style.display = 'none';
+    selEl.value = '';
+    otherEl.value = '';
+  }
+}
+function syncSecondSubjectValue(){
+  const selEl = $('secondSubjectBscSelect');
+  const otherEl = $('secondSubjectBscOther');
+  const textEl = $('secondSubject');
+  if($('secondQualification').value !== 'B.Sc') return;
+  textEl.value = (selEl.value === 'Others') ? otherEl.value : selEl.value;
+}
+$('secondSubjectBscSelect').addEventListener('change', ()=>{
+  const showOther = $('secondSubjectBscSelect').value === 'Others';
+  $('secondSubjectBscOther').style.display = showOther ? '' : 'none';
+  $('secondSubjectHelper').style.display = showOther ? '' : 'none';
+  if(!showOther) $('secondSubjectBscOther').value = '';
+  syncSecondSubjectValue();
+});
+$('secondSubjectBscOther').addEventListener('input', syncSecondSubjectValue);
+
+/* -- Professional qualification conditional 2nd qualification + Other text -- */
+$('profQualification1').addEventListener('change', e=>{
+  const block = $('secondProfQualBlock');
+  const show = e.target.value === 'B.Ed' || e.target.value === 'M.Ed' || e.target.value === 'B.Ed (Hons)';
+  block.classList.toggle('show', show);
+  if(!show){
+    $('profQualification2').value='';
+    $('profDivision2').value='';
+    $('profQualification2OtherField').style.display = 'none';
+    $('profQualification2Other').value = '';
+  }
+  const otherShow = e.target.value === 'Other';
+  $('profQualification1OtherField').style.display = otherShow ? '' : 'none';
+  if(!otherShow) $('profQualification1Other').value = '';
+});
+
+$('profQualification2').addEventListener('change', e=>{
+  const show = e.target.value === 'Other';
+  $('profQualification2OtherField').style.display = show ? '' : 'none';
+  if(!show) $('profQualification2Other').value = '';
+});
+
+/* -- First Appointment Authority: reveal District Name text box for Other Districts -- */
+$('firstAppointmentAuthority').addEventListener('change', e=>{
+  const show = e.target.value === 'Other Districts';
+  $('firstAppointmentAuthorityOtherField').style.display = show ? '' : 'none';
+  if(!show) $('firstAppointmentAuthorityOther').value = '';
+  updateDatePrefills();
+});
+
+/* -- Designation: reveal Promotee/Direct Selectee; EST Promotion Details only for Promotee -- */
+function updateEstPromotionVisibility(){
+  const designation = $('designation').value;
+  const isEst = designation !== '' && designation !== 'PST';
+  const promoteeField = $('promoteeOrDirectField');
+  promoteeField.style.display = isEst ? '' : 'none';
+  if(!isEst){
+    $('promoteeOrDirect').value = '';
+  }
+  const showPromotionDetails = isEst && $('promoteeOrDirect').value === 'Promotee';
+  const block = $('estPromotionBlock');
+  block.classList.toggle('show', showPromotionDetails);
+  if(!showPromotionDetails){
+    ['dateJoiningEST','promotionOrderNo','dateOfPromotionOrder','authorityOfPromotion']
+      .forEach(id=>{ $(id).value=''; });
+  }
+}
+$('designation').addEventListener('change', updateEstPromotionVisibility);
+$('promoteeOrDirect').addEventListener('change', updateEstPromotionVisibility);
+
+/* -- Calendar date pickers (dd/mm/yyyy display, range: today back to 60 years ago) -- */
+const TODAY_DATE = new Date();
+const MIN_DATE = new Date(TODAY_DATE.getFullYear() - 60, TODAY_DATE.getMonth(), TODAY_DATE.getDate());
+const MIN_YEAR = MIN_DATE.getFullYear();
+const MAX_YEAR = TODAY_DATE.getFullYear();
+
+const DATE_FIELD_IDS = ['dob','dateOfAppointment','dateOfRegular','dateJoiningEST',
+  'dateOfPromotionOrder','dateJoiningDistrictGujrat','dateJoiningFemaleSchool'];
+
+DATE_FIELD_IDS.forEach(id=>{
+  flatpickr('#'+id, {
+    dateFormat: 'd/m/Y',
+    allowInput: true,
+    minDate: MIN_DATE,
+    maxDate: TODAY_DATE,
+    onChange: (id === 'dateOfAppointment') ? updateDatePrefills : undefined
+  });
+});
+
+function isValidDDMMYYYY(v){
+  const m = /^(\d{2})\/(\d{2})\/(\d{4})$/.exec(v);
+  if(!m) return false;
+  const d = parseInt(m[1],10), mo = parseInt(m[2],10), y = parseInt(m[3],10);
+  if(mo < 1 || mo > 12) return false;
+  const daysInMonth = [31, (y%4===0 && (y%100!==0 || y%400===0))?29:28,31,30,31,30,31,31,30,31,30,31];
+  if(d < 1 || d > daysInMonth[mo-1]) return false;
+  if(y < MIN_YEAR || y > MAX_YEAR) return false;
+  return true;
+}
+
+/* -- Auto-prefill (but editable) date sync based on First Appointment Authority -- */
+let lastAutoFemaleSchoolDate = null;
+let lastAutoGujratDate = null;
+
+function setDateFieldValue(id, value){
+  const el = $(id);
+  if(el && el._flatpickr){ el._flatpickr.setDate(value, true); }
+  else if(el){ el.value = value; }
+}
+
+function updateDatePrefills(){
+  const authority = $('firstAppointmentAuthority').value;
+  const apptDate = $('dateOfAppointment').value;
+  if(!apptDate) return;
+
+  if(authority === 'DEO/DY.DEO(Women)'){
+    const cur = $('dateJoiningFemaleSchool').value;
+    if(!cur || cur === lastAutoFemaleSchoolDate){
+      setDateFieldValue('dateJoiningFemaleSchool', apptDate);
+      lastAutoFemaleSchoolDate = apptDate;
+    }
+  }
+
+  if(authority !== '' && authority !== 'Other Districts'){
+    const cur = $('dateJoiningDistrictGujrat').value;
+    if(!cur || cur === lastAutoGujratDate){
+      setDateFieldValue('dateJoiningDistrictGujrat', apptDate);
+      lastAutoGujratDate = apptDate;
+    }
+  }
+}
+
+
+
+/* ============================================================
+   4. FIELD DEFINITIONS FOR VALIDATION / PREVIEW / SUBMISSION
+   ============================================================ */
+function isVisible(el){
+  return !!(el.offsetWidth || el.offsetHeight || el.getClientRects().length);
+}
+
+/* General visibility check: false if any ancestor .field/.conditional-block wrapper
+   is hidden (inline display:none on a .field) or is a collapsed .conditional-block. */
+function isFieldVisible(el){
+  let node = el.parentElement;
+  while(node && node !== document.body){
+    if(node.classList && node.classList.contains('conditional-block') && !node.classList.contains('show')) return false;
+    if(node.classList && node.classList.contains('field') && node.style.display === 'none') return false;
+    node = node.parentElement;
+  }
+  return true;
+}
+
+const SECTION_FIELDS = [
+  { title:"Personal Details", fields:[
+    ["designation","Designation"],
+    ["promoteeOrDirect","Promotee / Direct Selectee"],
+    ["teacherNameParentage","Name of Teacher with Parentage"],
+    ["cnic","CNIC"],
+    ["dob","Date of Birth"],
+    ["domicileDistrict","Domicile District"],
+    ["emisCode","EMIS Code"],
+    ["schoolName","Current School Name"],
+  ]},
+  { title:"Academic Qualification", fields:[
+    ["highestQualification","Highest Degree / Certificate"],
+    ["highestQualificationOther","Please specify qualification"],
+    ["highestSubject","Subject"],
+    ["highestDivision","Division"],
+    ["secondQualification","2nd Qualification"],
+    ["secondQualificationOther","2nd Qualification (specified)"],
+    ["secondSubject","2nd Qualification Subject"],
+    ["secondDivision","2nd Qualification Division"],
+  ]},
+  { title:"Professional Qualification", fields:[
+    ["profQualification1","1st Qualification"],
+    ["profQualification1Other","Please specify qualification"],
+    ["profDivision1","Division"],
+    ["profQualification2","2nd Qualification"],
+    ["profQualification2Other","2nd Qualification (specified)"],
+    ["profDivision2","2nd Qualification Division"],
+  ]},
+  { title:"Professional Details", fields:[
+    ["seniorityNumber","Current Seniority Number"],
+    ["firstAppointmentAuthority","First Appointment Authority"],
+    ["firstAppointmentAuthorityOther","District Name"],
+    ["dateOfAppointment","Date of Appointment"],
+    ["dateOfRegular","Date of Regular"],
+    ["meritMarks","Merit Marks"],
+    ["dateJoiningEST","Date Of Joining as EST"],
+    ["promotionOrderNo","Promotion Order No"],
+    ["dateOfPromotionOrder","Date of Promotion Order"],
+    ["authorityOfPromotion","Authority of Promotion"],
+    ["dateJoiningDistrictGujrat","Date of Joining District Gujrat"],
+    ["dateJoiningFemaleSchool","Date of Joining Female School"],
+    ["anyOtherDetail","Any Other Detail"],
+  ]},
+];
+
+function fieldDisplayValue(id){
+  const el = $(id);
+  return el.value;
+}
+
+/* ============================================================
+   5. VALIDATION
+   ============================================================ */
+function clearInvalid(){
+  document.querySelectorAll('.field.invalid').forEach(f=>f.classList.remove('invalid'));
+}
+
+function validateForm(){
+  clearInvalid();
+  let firstInvalid = null;
+  let ok = true;
+
+  const required = [
+    'designation','teacherNameParentage','cnic','dob','domicileDistrict',
+    'emisCode','schoolName',
+    'highestQualification','highestSubject','highestDivision',
+    'profQualification1','profDivision1',
+    'seniorityNumber','firstAppointmentAuthority','dateOfAppointment','dateOfRegular','meritMarks',
+    'dateJoiningDistrictGujrat','dateJoiningFemaleSchool'
+  ];
+
+  if($('promoteeOrDirectField').style.display !== 'none'){
+    required.push('promoteeOrDirect');
+  }
+  /* 2nd Qualification (academic & professional) is optional; only require the
+     "please specify" text if the person explicitly picks "Other" within it. */
+  if($('secondQualification').value === 'Other') required.push('secondQualificationOther');
+  if($('profQualification2').value === 'Other') required.push('profQualification2Other');
+  if($('estPromotionBlock').classList.contains('show')){
+    required.push('dateJoiningEST','promotionOrderNo','dateOfPromotionOrder','authorityOfPromotion');
+  }
+  if($('highestQualification').value === 'Other'){
+    required.push('highestQualificationOther');
+  }
+  if($('profQualification1').value === 'Other'){
+    required.push('profQualification1Other');
+  }
+  if($('firstAppointmentAuthority').value === 'Other Districts'){
+    required.push('firstAppointmentAuthorityOther');
+  }
+
+  required.forEach(id=>{
+    const el = $(id);
+    const empty = !el.value || !el.value.toString().trim();
+    if(empty){
+      ok = false;
+      el.closest('.field').classList.add('invalid');
+      if(!firstInvalid) firstInvalid = (id === 'teacherNameParentage') ? $('teacherNameOnly') : el;
+    }
+  });
+
+  const cnicVal = $('cnic').value;
+  if(cnicVal && !/^\d{5}-\d{7}-\d$/.test(cnicVal)){
+    ok = false;
+    $('cnic').closest('.field').classList.add('invalid');
+    $('cnicHelper').textContent = 'CNIC must be in the format 00000-0000000-0';
+    $('cnicHelper').classList.add('err');
+    if(!firstInvalid) firstInvalid = $('cnic');
+  }
+
+  const meritVal = $('meritMarks').value;
+  if(meritVal !== ''){
+    const meritNum = parseFloat(meritVal);
+    if(isNaN(meritNum) || meritNum < 0 || meritNum > 100){
+      ok = false;
+      $('meritMarks').closest('.field').classList.add('invalid');
+      $('meritMarksHelper').textContent = 'Merit marks cannot exceed 100.';
+      $('meritMarksHelper').classList.add('err');
+      if(!firstInvalid) firstInvalid = $('meritMarks');
+    } else {
+      $('meritMarksHelper').textContent = 'Out of 100';
+      $('meritMarksHelper').classList.remove('err');
+    }
+  }
+
+  /* dd/mm/yyyy validation for every filled date field */
+  const dateFieldsWithHelpers = [
+    ['dob','dobHelper'],
+    ['dateOfAppointment','dateOfAppointmentHelper'],
+    ['dateOfRegular','dateOfRegularHelper'],
+    ['dateJoiningEST','dateJoiningESTHelper'],
+    ['dateOfPromotionOrder','dateOfPromotionOrderHelper'],
+    ['dateJoiningDistrictGujrat','dateJoiningDistrictGujratHelper'],
+    ['dateJoiningFemaleSchool','dateJoiningFemaleSchoolHelper'],
+  ];
+  dateFieldsWithHelpers.forEach(([id,helperId])=>{
+    const el = $(id);
+    const helper = $(helperId);
+    const val = el.value.trim();
+    if(val && !isValidDDMMYYYY(val)){
+      ok = false;
+      el.closest('.field').classList.add('invalid');
+      helper.textContent = 'Enter a valid date as dd/mm/yyyy (within the last 60 years)';
+      helper.classList.add('err');
+      if(!firstInvalid) firstInvalid = el;
+    } else if(helper){
+      helper.textContent = 'dd/mm/yyyy';
+      helper.classList.remove('err');
+    }
+  });
+
+  /* B.Sc "Others" subject must be exactly three comma-separated subjects (Highest Degree, required) */
+  if($('highestQualification').value === 'B.Sc' && $('highestSubjectBscSelect').value === 'Others'){
+    const otherVal = $('highestSubjectBscOther').value.trim();
+    const helper = $('highestSubjectHelper');
+    if(otherVal){
+      const parts = otherVal.split(',').map(s=>s.trim()).filter(Boolean);
+      if(parts.length !== 3){
+        ok = false;
+        $('highestSubjectField').classList.add('invalid');
+        helper.textContent = 'Enter exactly three subjects, separated by commas (e.g. Physics, Chemistry, Biology).';
+        helper.classList.add('err');
+        if(!firstInvalid) firstInvalid = $('highestSubjectBscOther');
+      } else {
+        helper.textContent = 'Enter exactly three subjects, separated by commas.';
+        helper.classList.remove('err');
+      }
+    }
+  }
+
+  /* Same check for the optional 2nd Qualification's B.Sc "Others" subject, only if something was typed */
+  if($('secondQualification').value === 'B.Sc' && $('secondSubjectBscSelect').value === 'Others'){
+    const otherVal = $('secondSubjectBscOther').value.trim();
+    const helper = $('secondSubjectHelper');
+    if(otherVal){
+      const parts = otherVal.split(',').map(s=>s.trim()).filter(Boolean);
+      if(parts.length !== 3){
+        ok = false;
+        $('secondSubjectField').classList.add('invalid');
+        helper.textContent = 'Enter exactly three subjects, separated by commas (e.g. Physics, Chemistry, Biology).';
+        helper.classList.add('err');
+        if(!firstInvalid) firstInvalid = $('secondSubjectBscOther');
+      } else {
+        helper.textContent = 'Enter exactly three subjects, separated by commas.';
+        helper.classList.remove('err');
+      }
+    }
+  }
+
+  if(!$('declarationCheck').checked){
+    ok = false;
+    if(!firstInvalid) firstInvalid = $('declarationCheck');
+  }
+
+  if(!ok && firstInvalid){
+    firstInvalid.scrollIntoView({behavior:'smooth', block:'center'});
+  }
+
+  return ok;
+}
+
+/* ============================================================
+   6. PREVIEW MODAL
+   ============================================================ */
+function buildPreviewHTML(){
+  let html = '';
+  SECTION_FIELDS.forEach(section=>{
+    const rows = section.fields
+      .map(([id,label])=>{
+        const el = $(id);
+        if(!isFieldVisible(el)) return '';
+        const val = fieldDisplayValue(id);
+        if(!val) return '';
+        return `<tr><td class="k">${label}</td><td class="v">${val}</td></tr>`;
+      })
+      .filter(Boolean)
+      .join('');
+    if(rows){
+      html += `<div class="preview-section-title">${section.title}</div><table class="preview-table">${rows}</table>`;
+    }
+  });
+  return html;
+}
+
+const SECTION_COLORS = {
+  "Personal Details": "#0B5D3B",
+  "Academic Qualification": "#9C7A24",
+  "Professional Qualification": "#7A2E2E",
+  "Professional Details": "#1F4E79"
+};
+
+function buildPrintHTML(){
+  let html = '';
+  SECTION_FIELDS.forEach(section=>{
+    const cells = section.fields
+      .map(([id,label])=>{
+        const el = $(id);
+        if(!isFieldVisible(el)) return '';
+        const val = fieldDisplayValue(id);
+        if(!val) return '';
+        return `<div class="pt-cell"><span class="pt-label">${label}</span><span class="pt-value">${val}</span></div>`;
+      })
+      .filter(Boolean)
+      .join('');
+    if(cells){
+      const color = SECTION_COLORS[section.title] || '#0B5D3B';
+      html += `<div class="pt-section-header" style="background:${color}">${section.title}</div><div class="pt-grid">${cells}</div>`;
+    }
+  });
+  return html;
+}
+
+$('previewBtn').addEventListener('click', ()=>{
+  if(!validateForm()) return;
+  $('previewBody').innerHTML = buildPreviewHTML();
+  $('statusLine').textContent = '';
+  $('statusLine').className = 'status-line';
+  $('modalOverlay').classList.add('show');
+});
+
+$('editBtn').addEventListener('click', ()=>{
+  $('modalOverlay').classList.remove('show');
+});
+
+/* ============================================================
+   7. SUBMISSION: send to Google Sheet + download PDF
+   ============================================================ */
+function collectPayload(){
+  const payload = {};
+  SECTION_FIELDS.forEach(section=>{
+    section.fields.forEach(([id])=>{
+      payload[id] = $(id).value || '';
+    });
+  });
+  payload.submittedAt = new Date().toISOString();
+  return payload;
+}
+
+function sanitizeForFilename(s){
+  return (s || '')
+    .toString()
+    .trim()
+    .replace(/[^a-zA-Z0-9\-]+/g,'_')
+    .replace(/_+/g,'_')
+    .replace(/^_|_$/g,'');
+}
+
+/* The teacher's combined "Name D/O Father Name" field — pull just the name
+   part (before "D/O") for use in the downloaded PDF's filename. */
+function extractTeacherNamePart(v){
+  const s = (v || '').toString();
+  const idx = s.toUpperCase().indexOf('D/O');
+  return (idx > -1 ? s.slice(0, idx) : s).trim();
+}
+
+async function submitToSheet(payload){
+  if(!GAS_URL || GAS_URL.indexOf('PASTE_YOUR') === 0){
+    return { ok:false, reason:'not-configured' };
+  }
+  try{
+    await fetch(GAS_URL, {
+      method:'POST',
+      mode:'no-cors',
+      headers:{ 'Content-Type':'text/plain;charset=utf-8' },
+      body: JSON.stringify(payload)
+    });
+    // 'no-cors' responses are opaque — treat a completed request as success.
+    return { ok:true };
+  }catch(err){
+    return { ok:false, reason:'network', error: err };
+  }
+}
+
+async function downloadPDF(payload){
+  $('printBody').innerHTML = buildPrintHTML();
+  const node = $('printTemplate');
+  const canvas = await html2canvas(node, { scale:2, backgroundColor:'#ffffff' });
+  const imgData = canvas.toDataURL('image/png');
+  const { jsPDF } = window.jspdf;
+  const pdf = new jsPDF('p','pt','a4');
+  const pageWidth = pdf.internal.pageSize.getWidth();
+  const pageHeight = pdf.internal.pageSize.getHeight();
+  const margin = 16;
+  const availW = pageWidth - margin*2;
+  const availH = pageHeight - margin*2;
+  const canvasAspect = canvas.width / canvas.height;
+
+  /* Scale the whole capture to fit within one A4 page, preserving aspect ratio. */
+  let drawW = availW;
+  let drawH = drawW / canvasAspect;
+  if(drawH > availH){
+    drawH = availH;
+    drawW = drawH * canvasAspect;
+  }
+  const x = (pageWidth - drawW) / 2;
+  const y = margin;
+  pdf.addImage(imgData,'PNG',x,y,drawW,drawH);
+
+  const name = sanitizeForFilename(extractTeacherNamePart(payload.teacherNameParentage)) || 'TEACHER';
+  const designation = sanitizeForFilename(payload.designation) || 'DESIGNATION';
+  const cnic = sanitizeForFilename(payload.cnic) || 'CNIC';
+  pdf.save(`${name}_${designation}_${cnic}.pdf`);
+}
+
+$('confirmSubmitBtn').addEventListener('click', async ()=>{
+  const btn = $('confirmSubmitBtn');
+  const status = $('statusLine');
+  btn.disabled = true;
+  status.className = 'status-line';
+  status.textContent = 'Submitting…';
+
+  const payload = collectPayload();
+
+  const [sheetResult] = await Promise.all([
+    submitToSheet(payload),
+    downloadPDF(payload)
+  ]);
+
+  if(sheetResult.ok){
+    status.textContent = 'Saved to the district sheet and your PDF has been downloaded.';
+    status.classList.add('ok');
+  } else if(sheetResult.reason === 'not-configured'){
+    status.textContent = 'Your PDF was downloaded. Google Sheet saving is not yet configured for this form — please tell the form administrator.';
+    status.classList.add('bad');
+  } else {
+    status.textContent = 'Your PDF was downloaded, but the form could not reach the Google Sheet. Please check your internet connection and try again, or share the PDF directly.';
+    status.classList.add('bad');
+  }
+
+  btn.disabled = false;
+  btn.textContent = 'Submitted';
+  $('editBtn').textContent = 'Close';
+});
+
+</script>
+</body>
+</html>
