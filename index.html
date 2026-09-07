@@ -440,9 +440,10 @@
 <div class="page">
 
   <div class="letterhead">
-    <div class="dept">District Education Authority · Gujrat</div>
+    <div class="dept">District Education Officer (W-EE) · Gujrat</div>
     <h1>Seniority Updation Form — PST / EST (Female)</h1>
-    <p class="sub">Tentative seniority data collection for female PST &amp; EST cadre, District Gujrat</p>
+    <p class="sub">Tentative Seniority Data Collection for female PST &amp; EST cadre, District Gujrat</p>
+    <p class="sub">Rashid Mahmood Azam (Assistant Education Offcier)</p>
     <hr>
   </div>
 
@@ -723,7 +724,7 @@
           <select id="firstAppointmentAuthority" required>
             <option value="">Select…</option>
             <option value="DEO/DY.DEO(Women)">DEO/DY.DEO(Women)</option>
-            <option value="DEO/DY.DEO(Male)">DEO/DY.DEO(Male)</option>
+            <option value="DEO(Male)">DEO(Male)</option>
             <option value="Other Districts">Other Districts</option>
           </select>
         </div>
@@ -803,7 +804,7 @@
     <div class="declaration">
       <label>
         <input type="checkbox" id="declarationCheck" required>
-        <span class="urdu">"میں تصدیق کرتی ہوں کہ اس فارم میں درج تمام معلومات بالکل درست ہیں، کسی بھی غلطی کی تمام ترذمہ داری  مجھ پر ہو گی۔"</span>
+        <span class="urdu">"میں تصدیق کرتی ہوں کہ درج بالا تمام معلومات بالکل درست ہیں، کسی بھی غلطی کی ذمہ دار میں خود ہوں گی"</span>
       </label>
     </div>
 
@@ -864,15 +865,14 @@
 <div id="printTemplate">
   <div class="pt-header">
     <h1>Seniority Updation Form — PST / EST (Female)</h1>
-    <div class="pt-sub">District Education Authority, Gujrat</div>
+    <div class="pt-sub">District Education Officer(w-EE), Gujrat</div>
   </div>
   <div class="pt-goldbar"></div>
   <div class="pt-body">
     <div id="printBody"></div>
-    <div class="pt-declaration">"میں حلفاً بیان کرتی ہوں کہ اس فارم میں درج تمام معلومات بالکل درست ہیں، کسی بھی غلطی کی صورت میں میں ذمہ دار ہوں گی۔"</div>
+    <div class="pt-declaration">"میں تصدیق کرتی ہوں کہ درج بالا تمام معلومات بالکل درست ہیں، کسی بھی غلطی کی ذمہ دار میں خود ہوں گی"</div>
     <div class="pt-sign">
       <div>دستخط ٹیچر</div>
-      <div>دستخط مہر ہیڈ ٹیچر</div>
     </div>
   </div>
 
@@ -1436,14 +1436,20 @@ const ALL_FIELD_LABELS = [
 
 function formatTimestampDDMMYYYY(v){
   if(!v) return '';
+  const str = v.toString().trim();
+  // Backend already stores this as "dd/MM/yyyy HH:mm:ss" in GMT+5 (Pakistan
+  // Standard Time) — use it as-is rather than reparsing.
+  if(/^\d{2}\/\d{2}\/\d{4}/.test(str)) return str;
+  // Fallback for older rows saved as a raw date/timestamp — convert to GMT+5 for display.
   try{
-    const d = new Date(v);
-    if(isNaN(d.getTime())) return v;
-    const dd = String(d.getDate()).padStart(2,'0');
-    const mm = String(d.getMonth()+1).padStart(2,'0');
-    const yyyy = d.getFullYear();
-    return `${dd}/${mm}/${yyyy}`;
-  }catch(e){ return v; }
+    const d = new Date(str);
+    if(isNaN(d.getTime())) return str;
+    const parts = new Intl.DateTimeFormat('en-GB', {
+      timeZone:'Asia/Karachi', day:'2-digit', month:'2-digit', year:'numeric',
+      hour:'2-digit', minute:'2-digit', hour12:false
+    }).formatToParts(d).reduce((o,p)=>{ o[p.type]=p.value; return o; }, {});
+    return `${parts.day}/${parts.month}/${parts.year} ${parts.hour}:${parts.minute}`;
+  }catch(e){ return str; }
 }
 
 function buildPrintHTMLFromRecord(rec){
