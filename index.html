@@ -74,6 +74,12 @@
     color:var(--muted);
     margin:0;
   }
+  .letterhead .admin-name{
+    font-size:0.92rem;
+    font-weight:700;
+    color:var(--ink);
+    margin:6px 0 0;
+  }
   .letterhead hr{
     border:none;
     border-top:2px solid var(--green);
@@ -442,7 +448,7 @@
   <div class="letterhead">
     <div class="dept">District Education Officer (W-EE) · Gujrat</div>
     <h1>Seniority Updation Form — PST / EST (Female)</h1>
-    <p class="sub">Tentative Seniority Data Collection for female PST &amp; EST cadre, District Gujrat</p>
+    <p class="sub">Tentative seniority data collection for female PST &amp; EST cadre, District Gujrat</p>
     <p class="admin-name">Rashid Mahmood Azam (Assistant Education Officer)</p>
     <hr>
   </div>
@@ -451,7 +457,7 @@
     <div class="section-title" style="margin-top:0;"><span class="bar"></span><h2>Search Your Submitted Form</h2></div>
     <p class="section-hint">Already submitted this form? Search by your CNIC or Form Number to download a PDF copy of it.</p>
     <div class="edit-lookup-row">
-      <input type="text" id="lookupQuery" placeholder="CNIC (00000-0000000-0) or Form Number (e.g. GJT-000001)">
+      <input type="text" id="lookupQuery" placeholder="CNIC (00000-0000000-0) or Form Number (e.g. GJR-000001)">
       <button type="button" class="btn-primary" id="lookupBtn">Search</button>
     </div>
     <div id="lookupResults"></div>
@@ -724,7 +730,7 @@
           <select id="firstAppointmentAuthority" required>
             <option value="">Select…</option>
             <option value="DEO/DY.DEO(Women)">DEO/DY.DEO(Women)</option>
-            <option value="DEO/DY.DEO(Male)">DEO/DY.DEO(Male)</option>
+            <option value="DEO(Male)">DEO(Male)</option>
             <option value="Other Districts">Other Districts</option>
           </select>
         </div>
@@ -865,7 +871,7 @@
 <div id="printTemplate">
   <div class="pt-header">
     <h1>Seniority Updation Form — PST / EST (Female)</h1>
-    <div class="pt-sub">District Education Officer(W-EE), Gujrat</div>
+    <div class="pt-sub">District Education Officer (W-EE), Gujrat</div>
   </div>
   <div class="pt-goldbar"></div>
   <div class="pt-body">
@@ -873,6 +879,7 @@
     <div class="pt-declaration">"میں تصدیق کرتی ہوں کہ درج بالا تمام معلومات بالکل درست ہیں، کسی بھی غلطی کی ذمہ دار میں خود ہوں گی"</div>
     <div class="pt-sign">
       <div>دستخط ٹیچر</div>
+      <div>دستخط مہر ہیڈ ٹیچر</div>
     </div>
   </div>
 
@@ -910,6 +917,23 @@ const BASE_QUALS = ["Matric","F.A / F.Sc","B.A","B.Sc"];
     e.target.value = e.target.value.toUpperCase();
     e.target.setSelectionRange(pos,pos);
     syncTeacherNameParentage();
+  });
+});
+
+/* Every other free-text field the person types into is forced to capitals too. */
+const UPPERCASE_FIELDS = [
+  'domicileDistrict','highestSubject','highestSubjectBscOther','highestQualificationOther',
+  'secondSubject','secondSubjectBscOther','secondQualificationOther',
+  'profQualification1Other','profQualification2Other','seniorityNumber',
+  'firstAppointmentAuthorityOther','promotionOrderNo','anyOtherDetail'
+];
+UPPERCASE_FIELDS.forEach(id=>{
+  const el = $(id);
+  if(!el) return;
+  el.addEventListener('input', e=>{
+    const pos = e.target.selectionStart;
+    e.target.value = e.target.value.toUpperCase();
+    e.target.setSelectionRange(pos,pos);
   });
 });
 
@@ -1150,22 +1174,37 @@ function setDateFieldValue(id, value){
 function updateDatePrefills(){
   const authority = $('firstAppointmentAuthority').value;
   const apptDate = $('dateOfAppointment').value;
-  if(!apptDate) return;
 
-  if(authority === 'DEO/DY.DEO(Women)'){
+  if(authority === 'DEO/DY.DEO(Women)' && apptDate){
     const cur = $('dateJoiningFemaleSchool').value;
     if(!cur || cur === lastAutoFemaleSchoolDate){
       setDateFieldValue('dateJoiningFemaleSchool', apptDate);
       lastAutoFemaleSchoolDate = apptDate;
     }
+  } else {
+    // Not DEO/DY.DEO(Women) — e.g. "Other Districts" — clear anything we
+    // previously auto-filled here so the teacher enters it manually.
+    // A value the teacher typed themselves is left untouched.
+    const cur = $('dateJoiningFemaleSchool').value;
+    if(cur && cur === lastAutoFemaleSchoolDate){
+      setDateFieldValue('dateJoiningFemaleSchool', '');
+    }
+    lastAutoFemaleSchoolDate = null;
   }
 
-  if(authority !== '' && authority !== 'Other Districts'){
+  if(authority !== '' && authority !== 'Other Districts' && apptDate){
     const cur = $('dateJoiningDistrictGujrat').value;
     if(!cur || cur === lastAutoGujratDate){
       setDateFieldValue('dateJoiningDistrictGujrat', apptDate);
       lastAutoGujratDate = apptDate;
     }
+  } else {
+    // "Other Districts" (or blank) — same clearing rule as above.
+    const cur = $('dateJoiningDistrictGujrat').value;
+    if(cur && cur === lastAutoGujratDate){
+      setDateFieldValue('dateJoiningDistrictGujrat', '');
+    }
+    lastAutoGujratDate = null;
   }
 }
 
@@ -1663,6 +1702,11 @@ $('lookupBtn').addEventListener('click', async ()=>{
 });
 
 function loadRecordIntoForm(rec){
+  // Reset auto-fill tracking so the date-prefill 'change' cascade below
+  // doesn't mistake a freshly-loaded value for a stale auto-fill and clear it.
+  lastAutoFemaleSchoolDate = null;
+  lastAutoGujratDate = null;
+
   // Direct-value fields — set before dispatching any 'change' events below.
   const directIds = ['cnic','domicileDistrict','emisCode','schoolName',
     'highestDivision','secondDivision','profDivision1','profDivision2',
