@@ -346,6 +346,9 @@
 
   /* Admin panel */
   .admin-modal{max-width:920px;}
+  .success-modal{max-width:420px;text-align:center;}
+  .success-modal h2{color:var(--green-dark);}
+  .success-modal p{font-size:0.95rem;color:var(--ink);line-height:1.6;}
   .admin-summary{
     display:grid;grid-template-columns:repeat(auto-fit, minmax(140px, 1fr));
     gap:10px;margin-bottom:14px;
@@ -457,7 +460,7 @@
     <div class="section-title" style="margin-top:0;"><span class="bar"></span><h2>Search Your Submitted Form</h2></div>
     <p class="section-hint">Already submitted this form? Search by your CNIC or Form Number to download a PDF copy of it.</p>
     <div class="edit-lookup-row">
-      <input type="text" id="lookupQuery" placeholder="CNIC (00000-0000000-0) or Form Number (e.g. GJT-000001)">
+      <input type="text" id="lookupQuery" placeholder="CNIC (00000-0000000-0) or Form Number (e.g. GJT-0001-1234)">
       <button type="button" class="btn-primary" id="lookupBtn">Search</button>
     </div>
     <div id="lookupResults"></div>
@@ -833,6 +836,17 @@
     <div class="modal-actions">
       <button type="button" class="btn-ghost" id="editBtn">Edit</button>
       <button type="button" class="btn-primary" id="confirmSubmitBtn">Confirm &amp; Submit</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ SUCCESS POPUP (shown after submission) ============ -->
+<div class="modal-overlay" id="successOverlay">
+  <div class="modal success-modal">
+    <h2>Submitted</h2>
+    <p id="successMessage"></p>
+    <div class="modal-actions" style="justify-content:center;">
+      <button type="button" class="btn-primary" id="successCloseBtn">Close</button>
     </div>
   </div>
 </div>
@@ -1625,22 +1639,30 @@ $('confirmSubmitBtn').addEventListener('click', async ()=>{
 
   await downloadPDF(payload);
 
+  // Close the review dialog and reset it for next time.
+  $('modalOverlay').classList.remove('show');
+  status.textContent = '';
+  status.className = 'status-line';
+  btn.disabled = false;
+  btn.textContent = 'Confirm & Submit';
+
+  // Show a compact success popup instead.
+  let successHtml;
   if(sheetResult.ok){
-    status.innerHTML = `Saved as Form Number <strong>${sheetResult.formNumber}</strong> — keep this number to edit your submission later. Your PDF has been downloaded.`;
-    status.classList.add('ok');
+    successHtml = `Your Form Number <strong>${sheetResult.formNumber}</strong> is submitted. A PDF copy has been downloaded to your device.`;
   } else if(sheetResult.reason === 'not-configured'){
-    status.textContent = 'Your PDF was downloaded. Google Sheet saving is not yet configured for this form — please tell the form administrator.';
-    status.classList.add('bad');
+    successHtml = 'Your PDF was downloaded. Google Sheet saving is not yet configured for this form — please tell the form administrator.';
   } else {
-    status.textContent = sheetResult.message
+    successHtml = sheetResult.message
       ? `Your PDF was downloaded, but the submission could not be saved: ${sheetResult.message}`
       : 'Your PDF was downloaded, but the form could not reach the Google Sheet. Please check your internet connection and try again.';
-    status.classList.add('bad');
   }
+  $('successMessage').innerHTML = successHtml;
+  $('successOverlay').classList.add('show');
+});
 
-  btn.disabled = false;
-  btn.textContent = 'Submitted';
-  $('editBtn').textContent = 'Close';
+$('successCloseBtn').addEventListener('click', ()=>{
+  $('successOverlay').classList.remove('show');
 });
 
 /* ============================================================
