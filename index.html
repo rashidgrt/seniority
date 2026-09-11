@@ -475,11 +475,11 @@
 
     <details class="top-note" id="setupNote" style="margin-top:16px;">
       <summary>Setup note for the form administrator (Rashid) — tap to expand</summary>
-      <p style="margin:10px 0 6px;">This form writes to a Google Sheet through a Google Apps Script Web App. Before sharing this form:</p>
+      <p style="margin:10px 0 6px;">This form writes to a Google Sheet through a Google Apps  Web App. Before sharing this form:</p>
       <ol style="margin:0 0 10px;padding-left:18px;">
         <li>Create a Google Sheet for responses.</li>
-        <li>Open <b>Extensions → Apps Script</b>, paste the backend code provided separately, change <code>ADMIN_PASSWORD</code> to something private, and deploy it as a <b>Web App</b> (Execute as: Me, Who has access: Anyone).</li>
-        <li>Copy the deployment URL and paste it as <code>GAS_URL</code> near the top of the <code>&lt;script&gt;</code> section of this file, replacing <code>"PASTE_YOUR_GOOGLE_APPS_SCRIPT_URL_HERE"</code>.</li>
+        <li>Open <b>Extensions → Apps </b>, paste the backend code provided separately, change <code>ADMIN_PASSWORD</code> to something private, and deploy it as a <b>Web App</b> (Execute as: Me, Who has access: Anyone).</li>
+        <li>Copy the deployment URL and paste it as <code>GAS_URL</code> near the top of the <code>&lt;&gt;</code> section of this file, replacing <code>"PASTE_YOUR_GOOGLE_APPS__URL_HERE"</code>.</li>
         <li>Re-open this file — submissions will then be appended to your Sheet automatically, each with a unique Form Number, and a PDF copy will download to the teacher's device on every submission.</li>
       </ol>
       <p style="margin:0 0 6px;color:var(--muted);">Teachers can search their own CNIC or Form Number above to re-download their PDF at any time. Editing an already-submitted record is only available from the Admin Panel (linked in the footer).</p>
@@ -899,11 +899,11 @@
 
 </div>
 
-<script>
+<>
 /* ============================================================
-   0. CONFIG — set this after deploying the Apps Script backend
+   0. CONFIG — set this after deploying the Apps  backend
    ============================================================ */
-const GAS_URL = "PASTE_YOUR_GOOGLE_APPS_SCRIPT_URL_HERE";
+const GAS_URL = "https://script.google.com/macros/s/AKfycbxrKQ2v20QFSYuLltZ74JZhDXWoJK_0BvIkU64OxpLGTskdKZYDX5yNZ8-PZZYgIuGneA/exec";
 
 /* This setup note is only useful before the form is connected — hide it
    automatically once a real Apps Script URL has been pasted in above. */
