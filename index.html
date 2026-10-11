@@ -801,6 +801,12 @@
           <span class="helper" id="dateJoiningFemaleSchoolHelper">dd/mm/yyyy</span>
         </div>
 
+        <div class="field">
+          <label>Date of Joining Current School<span class="req">*</span></label>
+          <input type="text" id="dateJoiningCurrentSchool" placeholder="dd/mm/yyyy" required inputmode="numeric">
+          <span class="helper" id="dateJoiningCurrentSchoolHelper">dd/mm/yyyy</span>
+        </div>
+
         <div class="field full">
           <label>Any Other Detail <span class="opt">(optional)</span></label>
           <textarea id="anyOtherDetail"></textarea>
@@ -1150,7 +1156,7 @@ const MIN_YEAR = MIN_DATE.getFullYear();
 const MAX_YEAR = TODAY_DATE.getFullYear();
 
 const DATE_FIELD_IDS = ['dob','dateOfAppointment','dateOfRegular','dateJoiningEST',
-  'dateOfPromotionOrder','dateJoiningDistrictGujrat','dateJoiningFemaleSchool'];
+  'dateOfPromotionOrder','dateJoiningDistrictGujrat','dateJoiningFemaleSchool','dateJoiningCurrentSchool'];
 
 DATE_FIELD_IDS.forEach(id=>{
   flatpickr('#'+id, {
@@ -1285,6 +1291,7 @@ const SECTION_FIELDS = [
     ["authorityOfPromotion","Authority of Promotion"],
     ["dateJoiningDistrictGujrat","Date of Joining District Gujrat"],
     ["dateJoiningFemaleSchool","Date of Joining Female School"],
+    ["dateJoiningCurrentSchool","Date of Joining Current School"],
     ["anyOtherDetail","Any Other Detail"],
   ]},
 ];
@@ -1312,7 +1319,7 @@ function validateForm(){
     'highestQualification','highestSubject','highestDivision',
     'profQualification1','profDivision1',
     'seniorityNumber','firstAppointmentAuthority','dateOfAppointment','dateOfRegular','meritMarks',
-    'dateJoiningDistrictGujrat','dateJoiningFemaleSchool'
+    'dateJoiningDistrictGujrat','dateJoiningFemaleSchool','dateJoiningCurrentSchool'
   ];
 
   if($('promoteeOrDirectField').style.display !== 'none'){
@@ -1378,6 +1385,7 @@ function validateForm(){
     ['dateOfPromotionOrder','dateOfPromotionOrderHelper'],
     ['dateJoiningDistrictGujrat','dateJoiningDistrictGujratHelper'],
     ['dateJoiningFemaleSchool','dateJoiningFemaleSchoolHelper'],
+    ['dateJoiningCurrentSchool','dateJoiningCurrentSchoolHelper'],
   ];
   dateFieldsWithHelpers.forEach(([id,helperId])=>{
     const el = $(id);
