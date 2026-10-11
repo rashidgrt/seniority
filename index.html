@@ -893,6 +893,7 @@
     <div class="pt-declaration">"میں تصدیق کرتی ہوں کہ درج بالا تمام معلومات بالکل درست ہیں، کسی بھی غلطی کی ذمہ دار میں خود ہوں گی"</div>
     <div class="pt-sign">
       <div>دستخط ٹیچر</div>
+      <div>دستخط مہر ہیڈ ٹیچر</div>
     </div>
   </div>
 
@@ -902,7 +903,7 @@
 /* ============================================================
    0. CONFIG — set this after deploying the Apps Script backend
    ============================================================ */
-const GAS_URL = "https://script.google.com/macros/s/AKfycbxrKQ2v20QFSYuLltZ74JZhDXWoJK_0BvIkU64OxpLGTskdKZYDX5yNZ8-PZZYgIuGneA/exec";
+const GAS_URL = "PASTE_YOUR_GOOGLE_APPS_SCRIPT_URL_HERE";
 
 /* This setup note is only useful before the form is connected — hide it
    automatically once a real Apps Script URL has been pasted in above. */
@@ -1593,10 +1594,11 @@ async function submitToSheet(payload){
 async function downloadPDF(payload){
   $('printBody').innerHTML = buildPrintHTMLFromRecord(payload);
   const node = $('printTemplate');
-  const canvas = await html2canvas(node, { scale:2, backgroundColor:'#ffffff' });
-  const imgData = canvas.toDataURL('image/png');
+  const canvas = await html2canvas(node, { scale:1.5, backgroundColor:'#ffffff' });
+  // JPEG instead of PNG keeps the PDF to a small size (typically ~100-200 KB).
+  const imgData = canvas.toDataURL('image/jpeg', 0.72);
   const { jsPDF } = window.jspdf;
-  const pdf = new jsPDF('p','pt','a4');
+  const pdf = new jsPDF({ orientation:'p', unit:'pt', format:'a4', compress:true });
   const pageWidth = pdf.internal.pageSize.getWidth();
   const pageHeight = pdf.internal.pageSize.getHeight();
   const margin = 16;
@@ -1613,7 +1615,7 @@ async function downloadPDF(payload){
   }
   const x = (pageWidth - drawW) / 2;
   const y = margin;
-  pdf.addImage(imgData,'PNG',x,y,drawW,drawH);
+  pdf.addImage(imgData,'JPEG',x,y,drawW,drawH,undefined,'FAST');
 
   const name = sanitizeForFilename(extractTeacherNamePart(payload.teacherNameParentage)) || 'TEACHER';
   const designation = sanitizeForFilename(payload.designation) || 'DESIGNATION';
