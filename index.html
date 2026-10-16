@@ -171,6 +171,8 @@
   .grid.cols-3{grid-template-columns:1fr 1fr 1fr;}
   .field{display:flex;flex-direction:column;gap:6px;}
   .field.full{grid-column:1 / -1;}
+  .bsc-three{display:flex;flex-direction:column;gap:6px;}
+  .light-note{font-size:0.76rem;font-weight:400;color:#9AA59E;margin-top:-3px;}
 
   .name-parentage-row{
     display:grid;
@@ -574,11 +576,10 @@
             <option value="F.A / F.Sc">F.A / F.Sc</option>
             <option value="B.A">B.A</option>
             <option value="B.Sc">B.Sc</option>
-            <option value="BS (Hons)">BS (Hons)</option>
+            <option value="BS/BS (Hons)">BS/BS (Hons)</option>
             <option value="M.A">M.A</option>
             <option value="M.Sc">M.Sc</option>
-            <option value="M.Phil">M.Phil</option>
-            <option value="PhD">PhD</option>
+            <option value="MS">MS</option>
             <option value="Other">Other</option>
           </select>
         </div>
@@ -591,8 +592,13 @@
             <option value="Math A-B Physics">Math A-B Physics</option>
             <option value="Others">Others</option>
           </select>
-          <input type="text" id="highestSubjectBscOther" style="display:none;" placeholder="e.g. Physics, Chemistry, Biology" autocomplete="off">
-          <span class="helper" id="highestSubjectHelper" style="display:none;">Enter exactly three subjects, separated by commas.</span>
+          <input type="hidden" id="highestSubjectBscOther" value="">
+          <div class="bsc-three" id="highestSubjectBscThree" style="display:none;">
+            <input type="text" id="highestSubjectBsc1" placeholder="SUBJECT 1" autocomplete="off">
+            <input type="text" id="highestSubjectBsc2" placeholder="SUBJECT 2" autocomplete="off">
+            <input type="text" id="highestSubjectBsc3" placeholder="SUBJECT 3" autocomplete="off">
+          </div>
+          <span class="helper" id="highestSubjectHelper" style="display:none;">Enter all three subjects — they are saved together, separated by “-”.</span>
         </div>
 
         <div class="field">
@@ -620,8 +626,8 @@
               <option value="BS (Hons)">BS (Hons)</option>
               <option value="M.A">M.A</option>
               <option value="M.Sc">M.Sc</option>
-              <option value="M.Phil">M.Phil</option>
-              <option value="PhD">PhD</option>
+              <option value="MS">MS</option>	
+              <option value="Shahadat-Ul-Almia">Shahadat-Ul-Almia</option>
               <option value="Other">Other</option>
             </select>
           </div>
@@ -633,8 +639,13 @@
               <option value="Math A-B Physics">Math A-B Physics</option>
               <option value="Others">Others</option>
             </select>
-            <input type="text" id="secondSubjectBscOther" style="display:none;" placeholder="e.g. Physics, Chemistry, Biology" autocomplete="off">
-            <span class="helper" id="secondSubjectHelper" style="display:none;">Enter exactly three subjects, separated by commas.</span>
+            <input type="hidden" id="secondSubjectBscOther" value="">
+            <div class="bsc-three" id="secondSubjectBscThree" style="display:none;">
+              <input type="text" id="secondSubjectBsc1" placeholder="SUBJECT 1" autocomplete="off">
+              <input type="text" id="secondSubjectBsc2" placeholder="SUBJECT 2" autocomplete="off">
+              <input type="text" id="secondSubjectBsc3" placeholder="SUBJECT 3" autocomplete="off">
+            </div>
+            <span class="helper" id="secondSubjectHelper" style="display:none;">Enter all three subjects — they are saved together, separated by “-”.</span>
           </div>
           <div class="field">
             <label>Division</label>
@@ -725,11 +736,12 @@
 
         <div class="field">
           <label>Current Seniority Number<span class="req">*</span></label>
+          <span class="light-note">According to Seniority List Corrected Upto 31.07.26</span>
           <input type="text" id="seniorityNumber" required autocomplete="off">
         </div>
 
         <div class="field">
-          <label>First Appointment Authority<span class="req">*</span></label>
+          <label><span id="lblAppointmentAuthorityText">Appointment Authority</span><span class="req">*</span></label>
           <select id="firstAppointmentAuthority" required>
             <option value="">Select…</option>
             <option value="DEO/DY.DEO(Women)">DEO/DY.DEO(Women)</option>
@@ -744,7 +756,7 @@
         </div>
 
         <div class="field">
-          <label>Date of Appointment<span class="req">*</span></label>
+          <label><span id="lblDateOfAppointmentText">Date of Appointment</span><span class="req">*</span></label>
           <input type="text" id="dateOfAppointment" placeholder="dd/mm/yyyy" required inputmode="numeric">
           <span class="helper" id="dateOfAppointmentHelper">dd/mm/yyyy</span>
         </div>
@@ -810,6 +822,27 @@
         <div class="field full">
           <label>Any Other Detail <span class="opt">(optional)</span></label>
           <textarea id="anyOtherDetail"></textarea>
+        </div>
+
+        <div class="field">
+          <label>Date of Superannuation<span class="req">*</span></label>
+          <input type="text" id="dateOfSuperannuation" readonly placeholder="Auto-calculated from Date of Birth">
+          <span class="helper">Calculated automatically: exactly 60 years of age.</span>
+        </div>
+
+        <div class="field">
+          <label>Applied LPR<span class="req">*</span></label>
+          <select id="appliedLPR" required>
+            <option value="">Select…</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+          </select>
+        </div>
+
+        <div class="field" id="lprEndDateField" style="display:none;">
+          <label>Date of Retirement/End of LPR<span class="req">*</span></label>
+          <input type="text" id="lprEndDate" placeholder="dd/mm/yyyy" inputmode="numeric">
+          <span class="helper" id="lprEndDateHelper">dd/mm/yyyy</span>
         </div>
 
       </div>
@@ -909,7 +942,7 @@
 /* ============================================================
    0. CONFIG — set this after deploying the Apps Script backend
    ============================================================ */
-const GAS_URL = "https://script.google.com/macros/s/AKfycbxS1QIUez_068e9oA5IQjE0mr66gXmRqqhyn5FA8qIbT8PwQ3v2kJL8IspsQgvTgFJkTA/exec";
+const GAS_URL = "https://script.google.com/macros/s/AKfycbyFPypP4HBwAfXKRinl0rA2tcXvUPkfNRdmOWN0JAgyPR8swbAH8EJ-5jJcPtRDkvGMoQ/exec";
 
 /* This setup note is only useful before the form is connected — hide it
    automatically once a real Apps Script URL has been pasted in above. */
@@ -942,8 +975,8 @@ const BASE_QUALS = ["Matric","F.A / F.Sc","B.A","B.Sc"];
 
 /* Every other free-text field the person types into is forced to capitals too. */
 const UPPERCASE_FIELDS = [
-  'domicileDistrict','highestSubject','highestSubjectBscOther','highestQualificationOther',
-  'secondSubject','secondSubjectBscOther','secondQualificationOther',
+  'domicileDistrict','highestSubject','highestSubjectBsc1','highestSubjectBsc2','highestSubjectBsc3','highestQualificationOther',
+  'secondSubject','secondSubjectBsc1','secondSubjectBsc2','secondSubjectBsc3','secondQualificationOther',
   'profQualification1Other','profQualification2Other','seniorityNumber',
   'firstAppointmentAuthorityOther','promotionOrderNo','anyOtherDetail'
 ];
@@ -998,43 +1031,64 @@ $('emisCode').addEventListener('input', e=>{
 });
 
 /* -- Academic qualification conditional 2nd qualification + subject mode + Other text -- */
-function updateSubjectMode(){
-  const qual = $('highestQualification').value;
-  const textEl = $('highestSubject');
-  const selEl = $('highestSubjectBscSelect');
-  const otherEl = $('highestSubjectBscOther');
-  const helperEl = $('highestSubjectHelper');
-  if(qual === 'B.Sc'){
+/* B.Sc "Others": three separate subject boxes, saved as ONE value joined with "-". */
+function bscBoxes(prefix){ return [1,2,3].map(n => $(prefix + 'Bsc' + n)); }
+function joinBscSubjects(prefix){
+  return bscBoxes(prefix).map(b => b.value.trim().toUpperCase()).filter(Boolean).join('-');
+}
+function setBscSubjects(prefix, joined){
+  const parts = (joined || '').split(/[-,]/);
+  bscBoxes(prefix).forEach((b,i)=>{ b.value = (parts[i] || '').trim(); });
+  $(prefix + 'BscOther').value = joinBscSubjects(prefix);
+}
+function clearBscSubjects(prefix){
+  bscBoxes(prefix).forEach(b => { b.value = ''; });
+  $(prefix + 'BscOther').value = '';
+}
+function showBscThree(prefix, show){
+  $(prefix + 'BscThree').style.display = show ? '' : 'none';
+  $(prefix + 'Helper').style.display = show ? '' : 'none';
+}
+function syncBscSubjectValue(prefix, qualId){
+  if($(qualId).value !== 'B.Sc') return;
+  const selEl = $(prefix + 'BscSelect');
+  $(prefix).value = (selEl.value === 'Others') ? $(prefix + 'BscOther').value : selEl.value;
+}
+function updateBscSubjectMode(prefix, qualId){
+  const textEl = $(prefix);
+  const selEl = $(prefix + 'BscSelect');
+  if($(qualId).value === 'B.Sc'){
     textEl.style.display = 'none';
     selEl.style.display = '';
-    const showOther = selEl.value === 'Others';
-    otherEl.style.display = showOther ? '' : 'none';
-    helperEl.style.display = showOther ? '' : 'none';
-    syncHighestSubjectValue();
+    showBscThree(prefix, selEl.value === 'Others');
+    syncBscSubjectValue(prefix, qualId);
   } else {
     textEl.style.display = '';
     selEl.style.display = 'none';
-    otherEl.style.display = 'none';
-    helperEl.style.display = 'none';
     selEl.value = '';
-    otherEl.value = '';
+    showBscThree(prefix, false);
+    clearBscSubjects(prefix);
   }
 }
-function syncHighestSubjectValue(){
-  const selEl = $('highestSubjectBscSelect');
-  const otherEl = $('highestSubjectBscOther');
-  const textEl = $('highestSubject');
-  if($('highestQualification').value !== 'B.Sc') return;
-  textEl.value = (selEl.value === 'Others') ? otherEl.value : selEl.value;
+function wireBscSubject(prefix, qualId){
+  $(prefix + 'BscSelect').addEventListener('change', ()=>{
+    const showOther = $(prefix + 'BscSelect').value === 'Others';
+    showBscThree(prefix, showOther);
+    if(!showOther) clearBscSubjects(prefix);
+    syncBscSubjectValue(prefix, qualId);
+  });
+  bscBoxes(prefix).forEach(box=>{
+    box.addEventListener('input', ()=>{
+      box.value = box.value.replace(/-/g,'');
+      $(prefix + 'BscOther').value = joinBscSubjects(prefix);
+      syncBscSubjectValue(prefix, qualId);
+    });
+  });
 }
-$('highestSubjectBscSelect').addEventListener('change', ()=>{
-  const showOther = $('highestSubjectBscSelect').value === 'Others';
-  $('highestSubjectBscOther').style.display = showOther ? '' : 'none';
-  $('highestSubjectHelper').style.display = showOther ? '' : 'none';
-  if(!showOther) $('highestSubjectBscOther').value = '';
-  syncHighestSubjectValue();
-});
-$('highestSubjectBscOther').addEventListener('input', syncHighestSubjectValue);
+function updateSubjectMode(){ updateBscSubjectMode('highestSubject','highestQualification'); }
+function updateSecondSubjectMode(){ updateBscSubjectMode('secondSubject','secondQualification'); }
+wireBscSubject('highestSubject','highestQualification');
+wireBscSubject('secondSubject','secondQualification');
 
 $('highestQualification').addEventListener('change', e=>{
   const block = $('secondQualBlock');
@@ -1061,43 +1115,7 @@ $('secondQualification').addEventListener('change', e=>{
   updateSecondSubjectMode();
 });
 
-function updateSecondSubjectMode(){
-  const qual = $('secondQualification').value;
-  const textEl = $('secondSubject');
-  const selEl = $('secondSubjectBscSelect');
-  const otherEl = $('secondSubjectBscOther');
-  const helperEl = $('secondSubjectHelper');
-  if(qual === 'B.Sc'){
-    textEl.style.display = 'none';
-    selEl.style.display = '';
-    const showOther = selEl.value === 'Others';
-    otherEl.style.display = showOther ? '' : 'none';
-    helperEl.style.display = showOther ? '' : 'none';
-    syncSecondSubjectValue();
-  } else {
-    textEl.style.display = '';
-    selEl.style.display = 'none';
-    otherEl.style.display = 'none';
-    helperEl.style.display = 'none';
-    selEl.value = '';
-    otherEl.value = '';
-  }
-}
-function syncSecondSubjectValue(){
-  const selEl = $('secondSubjectBscSelect');
-  const otherEl = $('secondSubjectBscOther');
-  const textEl = $('secondSubject');
-  if($('secondQualification').value !== 'B.Sc') return;
-  textEl.value = (selEl.value === 'Others') ? otherEl.value : selEl.value;
-}
-$('secondSubjectBscSelect').addEventListener('change', ()=>{
-  const showOther = $('secondSubjectBscSelect').value === 'Others';
-  $('secondSubjectBscOther').style.display = showOther ? '' : 'none';
-  $('secondSubjectHelper').style.display = showOther ? '' : 'none';
-  if(!showOther) $('secondSubjectBscOther').value = '';
-  syncSecondSubjectValue();
-});
-$('secondSubjectBscOther').addEventListener('input', syncSecondSubjectValue);
+
 
 /* -- Professional qualification conditional 2nd qualification + Other text -- */
 $('profQualification1').addEventListener('change', e=>{
@@ -1146,8 +1164,18 @@ function updateEstPromotionVisibility(){
       .forEach(id=>{ $(id).value=''; });
   }
 }
-$('designation').addEventListener('change', updateEstPromotionVisibility);
-$('promoteeOrDirect').addEventListener('change', updateEstPromotionVisibility);
+/* Labels depend on Promotee vs. everyone else. */
+function updateAppointmentLabels(){
+  const isPromotee = $('promoteeOrDirect').value === 'Promotee';
+  $('lblAppointmentAuthorityText').textContent = isPromotee ? 'First Appointment Authority' : 'Appointment Authority';
+  $('lblDateOfAppointmentText').textContent = isPromotee ? 'Date of Appointment as PST' : 'Date of Appointment';
+}
+function onDesignationOrPromoteeChange(){
+  updateEstPromotionVisibility();
+  updateAppointmentLabels();
+}
+$('designation').addEventListener('change', onDesignationOrPromoteeChange);
+$('promoteeOrDirect').addEventListener('change', onDesignationOrPromoteeChange);
 
 /* -- Calendar date pickers (dd/mm/yyyy display, range: today back to 60 years ago) -- */
 const TODAY_DATE = new Date();
@@ -1164,18 +1192,46 @@ DATE_FIELD_IDS.forEach(id=>{
     allowInput: true,
     minDate: MIN_DATE,
     maxDate: TODAY_DATE,
-    onChange: (id === 'dateOfAppointment') ? updateDatePrefills : undefined
+    onChange: (id === 'dateOfAppointment') ? updateDatePrefills
+            : (id === 'dob') ? updateSuperannuation
+            : undefined
   });
 });
+$('dob').addEventListener('input', updateSuperannuation);
 
-function isValidDDMMYYYY(v){
+/* Date of Retirement / End of LPR is normally ahead of today, so it gets its own range. */
+const LPR_MIN_DATE = new Date(TODAY_DATE.getFullYear() - 1, TODAY_DATE.getMonth(), TODAY_DATE.getDate());
+const LPR_MAX_DATE = new Date(TODAY_DATE.getFullYear() + 3, TODAY_DATE.getMonth(), TODAY_DATE.getDate());
+flatpickr('#lprEndDate', { dateFormat:'d/m/Y', allowInput:true, minDate:LPR_MIN_DATE, maxDate:LPR_MAX_DATE });
+
+/* Date of Superannuation = Date of Birth + exactly 60 years. */
+function updateSuperannuation(){
+  const out = $('dateOfSuperannuation');
+  const v = $('dob').value.trim();
+  if(!isValidDDMMYYYY(v)){ out.value = ''; return; }
+  const [d,m,y] = v.split('/').map(Number);
+  const ty = y + 60;
+  const lastDay = new Date(ty, m, 0).getDate();
+  out.value = String(Math.min(d,lastDay)).padStart(2,'0') + '/' + String(m).padStart(2,'0') + '/' + ty;
+}
+
+/* Applied LPR: Yes reveals the retirement / end-of-LPR date. */
+$('appliedLPR').addEventListener('change', e=>{
+  const show = e.target.value === 'Yes';
+  $('lprEndDateField').style.display = show ? '' : 'none';
+  if(!show) setDateFieldValue('lprEndDate','');
+});
+
+function isValidDDMMYYYY(v, minYear, maxYear){
+  if(minYear === undefined) minYear = MIN_YEAR;
+  if(maxYear === undefined) maxYear = MAX_YEAR;
   const m = /^(\d{2})\/(\d{2})\/(\d{4})$/.exec(v);
   if(!m) return false;
   const d = parseInt(m[1],10), mo = parseInt(m[2],10), y = parseInt(m[3],10);
   if(mo < 1 || mo > 12) return false;
   const daysInMonth = [31, (y%4===0 && (y%100!==0 || y%400===0))?29:28,31,30,31,30,31,31,30,31,30,31];
   if(d < 1 || d > daysInMonth[mo-1]) return false;
-  if(y < MIN_YEAR || y > MAX_YEAR) return false;
+  if(y < minYear || y > maxYear) return false;
   return true;
 }
 
@@ -1293,6 +1349,9 @@ const SECTION_FIELDS = [
     ["dateJoiningFemaleSchool","Date of Joining Female School"],
     ["dateJoiningCurrentSchool","Date of Joining Current School"],
     ["anyOtherDetail","Any Other Detail"],
+    ["dateOfSuperannuation","Date of Superannuation"],
+    ["appliedLPR","Applied LPR"],
+    ["lprEndDate","Date of Retirement/End of LPR"],
   ]},
 ];
 
@@ -1329,6 +1388,8 @@ function validateForm(){
      "please specify" text if the person explicitly picks "Other" within it. */
   if($('secondQualification').value === 'Other') required.push('secondQualificationOther');
   if($('profQualification2').value === 'Other') required.push('profQualification2Other');
+  required.push('dateOfSuperannuation','appliedLPR');
+  if($('appliedLPR').value === 'Yes') required.push('lprEndDate');
   if($('estPromotionBlock').classList.contains('show')){
     required.push('dateJoiningEST','promotionOrderNo','dateOfPromotionOrder','authorityOfPromotion');
   }
@@ -1386,15 +1447,18 @@ function validateForm(){
     ['dateJoiningDistrictGujrat','dateJoiningDistrictGujratHelper'],
     ['dateJoiningFemaleSchool','dateJoiningFemaleSchoolHelper'],
     ['dateJoiningCurrentSchool','dateJoiningCurrentSchoolHelper'],
+    ['lprEndDate','lprEndDateHelper', LPR_MIN_DATE.getFullYear(), LPR_MAX_DATE.getFullYear()],
   ];
-  dateFieldsWithHelpers.forEach(([id,helperId])=>{
+  dateFieldsWithHelpers.forEach(([id,helperId,minY,maxY])=>{
     const el = $(id);
     const helper = $(helperId);
     const val = el.value.trim();
-    if(val && !isValidDDMMYYYY(val)){
+    if(val && !isValidDDMMYYYY(val, minY, maxY)){
       ok = false;
       el.closest('.field').classList.add('invalid');
-      helper.textContent = 'Enter a valid date as dd/mm/yyyy (within the last 60 years)';
+      helper.textContent = (id === 'lprEndDate')
+        ? 'Enter a valid date as dd/mm/yyyy'
+        : 'Enter a valid date as dd/mm/yyyy (within the last 60 years)';
       helper.classList.add('err');
       if(!firstInvalid) firstInvalid = el;
     } else if(helper){
@@ -1403,43 +1467,23 @@ function validateForm(){
     }
   });
 
-  /* B.Sc "Others" subject must be exactly three comma-separated subjects (Highest Degree, required) */
-  if($('highestQualification').value === 'B.Sc' && $('highestSubjectBscSelect').value === 'Others'){
-    const otherVal = $('highestSubjectBscOther').value.trim();
-    const helper = $('highestSubjectHelper');
-    if(otherVal){
-      const parts = otherVal.split(',').map(s=>s.trim()).filter(Boolean);
-      if(parts.length !== 3){
-        ok = false;
-        $('highestSubjectField').classList.add('invalid');
-        helper.textContent = 'Enter exactly three subjects, separated by commas (e.g. Physics, Chemistry, Biology).';
-        helper.classList.add('err');
-        if(!firstInvalid) firstInvalid = $('highestSubjectBscOther');
-      } else {
-        helper.textContent = 'Enter exactly three subjects, separated by commas.';
-        helper.classList.remove('err');
-      }
+  /* B.Sc "Others": all three subject boxes must be filled.
+     Highest Degree is required; the optional 2nd Qualification is only checked once something is typed. */
+  [['highestSubject','highestQualification',true],['secondSubject','secondQualification',false]].forEach(([prefix,qualId,mandatory])=>{
+    if($(qualId).value !== 'B.Sc' || $(prefix + 'BscSelect').value !== 'Others') return;
+    const filled = bscBoxes(prefix).filter(b => b.value.trim()).length;
+    const helper = $(prefix + 'Helper');
+    if(filled === 3 || (filled === 0 && !mandatory)){
+      helper.textContent = 'Enter all three subjects — they are saved together, separated by “-”.';
+      helper.classList.remove('err');
+      return;
     }
-  }
-
-  /* Same check for the optional 2nd Qualification's B.Sc "Others" subject, only if something was typed */
-  if($('secondQualification').value === 'B.Sc' && $('secondSubjectBscSelect').value === 'Others'){
-    const otherVal = $('secondSubjectBscOther').value.trim();
-    const helper = $('secondSubjectHelper');
-    if(otherVal){
-      const parts = otherVal.split(',').map(s=>s.trim()).filter(Boolean);
-      if(parts.length !== 3){
-        ok = false;
-        $('secondSubjectField').classList.add('invalid');
-        helper.textContent = 'Enter exactly three subjects, separated by commas (e.g. Physics, Chemistry, Biology).';
-        helper.classList.add('err');
-        if(!firstInvalid) firstInvalid = $('secondSubjectBscOther');
-      } else {
-        helper.textContent = 'Enter exactly three subjects, separated by commas.';
-        helper.classList.remove('err');
-      }
-    }
-  }
+    ok = false;
+    $(prefix + 'Field').classList.add('invalid');
+    helper.textContent = 'Please fill in all three subject boxes.';
+    helper.classList.add('err');
+    if(!firstInvalid) firstInvalid = bscBoxes(prefix).find(b => !b.value.trim()) || $(prefix + 'Bsc1');
+  });
 
   if(!$('declarationCheck').checked){
     ok = false;
@@ -1469,7 +1513,7 @@ function buildPreviewHTML(){
         if(!isFieldVisible(el)) return '';
         const val = fieldDisplayValue(id);
         if(!val) return '';
-        return `<tr><td class="k">${label}</td><td class="v">${val}</td></tr>`;
+        return `<tr><td class="k">${labelFor(id,label,$('promoteeOrDirect').value)}</td><td class="v">${val}</td></tr>`;
       })
       .filter(Boolean)
       .join('');
@@ -1494,6 +1538,14 @@ const ALL_FIELD_LABELS = [
   ['submittedAt','Submitted At'],
   ['lastUpdatedAt','Last Updated At']
 ].concat(SECTION_FIELDS.reduce((all,s)=>all.concat(s.fields), []));
+
+/* Wording that changes with Promotee vs. everyone else. */
+function labelFor(id, label, promoteeValue){
+  const isPromotee = promoteeValue === 'Promotee';
+  if(id === 'firstAppointmentAuthority') return isPromotee ? 'First Appointment Authority' : 'Appointment Authority';
+  if(id === 'dateOfAppointment') return isPromotee ? 'Date of Appointment as PST' : 'Date of Appointment';
+  return label;
+}
 
 function formatTimestampDDMMYYYY(v){
   if(!v) return '';
@@ -1524,7 +1576,7 @@ function buildPrintHTMLFromRecord(rec){
       .map(([id,label])=>{
         const val = rec[id];
         if(!val) return '';
-        return `<div class="pt-cell"><span class="pt-label">${label}</span><span class="pt-value">${val}</span></div>`;
+        return `<div class="pt-cell"><span class="pt-label">${labelFor(id,label,rec.promoteeOrDirect)}</span><span class="pt-value">${val}</span></div>`;
       })
       .filter(Boolean)
       .join('');
@@ -1757,6 +1809,9 @@ function loadRecordIntoForm(rec){
 
   // Date fields via flatpickr.
   DATE_FIELD_IDS.forEach(id=> setDateFieldValue(id, rec[id] || ''));
+  $('appliedLPR').value = rec.appliedLPR || '';
+  setDateFieldValue('lprEndDate', rec.lprEndDate || '');
+  updateSuperannuation();
 
   // Highest Degree subject mode — set the sub-controls BEFORE dispatching
   // 'change' on highestQualification, since that handler reads them.
@@ -1765,10 +1820,10 @@ function loadRecordIntoForm(rec){
   if(rec.highestQualification === 'B.Sc'){
     if(rec.highestSubject === 'Math A-B Physics'){
       $('highestSubjectBscSelect').value = 'Math A-B Physics';
-      $('highestSubjectBscOther').value = '';
+      clearBscSubjects('highestSubject');
     } else {
       $('highestSubjectBscSelect').value = 'Others';
-      $('highestSubjectBscOther').value = rec.highestSubject || '';
+      setBscSubjects('highestSubject', rec.highestSubject);
     }
   }
 
@@ -1778,10 +1833,10 @@ function loadRecordIntoForm(rec){
   if(rec.secondQualification === 'B.Sc'){
     if(rec.secondSubject === 'Math A-B Physics'){
       $('secondSubjectBscSelect').value = 'Math A-B Physics';
-      $('secondSubjectBscOther').value = '';
+      clearBscSubjects('secondSubject');
     } else {
       $('secondSubjectBscSelect').value = 'Others';
-      $('secondSubjectBscOther').value = rec.secondSubject || '';
+      setBscSubjects('secondSubject', rec.secondSubject);
     }
   }
 
@@ -1793,7 +1848,7 @@ function loadRecordIntoForm(rec){
 
   // Cascade every dependent show/hide handler now that values are set.
   ['highestQualification','secondQualification','profQualification1','profQualification2',
-    'firstAppointmentAuthority','designation','promoteeOrDirect']
+    'firstAppointmentAuthority','designation','promoteeOrDirect','appliedLPR']
     .forEach(id => $(id).dispatchEvent(new Event('change')));
 
   // Declaration must be re-confirmed by the person editing.
@@ -1814,14 +1869,18 @@ function resetFormCompletely(){
   document.getElementById('seniorityForm').reset();
   $('formNumber').value = '';
   $('teacherNameParentage').value = '';
-  ['highestSubjectBscSelect','highestSubjectBscOther','secondSubjectBscSelect','secondSubjectBscOther',
+  clearBscSubjects('highestSubject');
+  clearBscSubjects('secondSubject');
+  ['highestSubjectBscSelect','secondSubjectBscSelect',
     'highestQualificationOther','secondQualificationOther','profQualification1Other','profQualification2Other',
     'firstAppointmentAuthorityOther','promoteeOrDirect']
     .forEach(id=>{ if($(id)) $(id).value = ''; });
   ['highestQualification','secondQualification','profQualification1','profQualification2',
-    'firstAppointmentAuthority','designation','promoteeOrDirect']
+    'firstAppointmentAuthority','designation','promoteeOrDirect','appliedLPR']
     .forEach(id => $(id).dispatchEvent(new Event('change')));
   DATE_FIELD_IDS.forEach(id => setDateFieldValue(id, ''));
+  setDateFieldValue('lprEndDate', '');
+  updateSuperannuation();
   $('editingBanner').style.display = 'none';
   $('lookupResults').innerHTML = '';
   $('lookupQuery').value = '';
@@ -1960,7 +2019,7 @@ function buildAdminDetailHTML(rec){
       let val = rec[id];
       if(id === 'submittedAt' || id === 'lastUpdatedAt') val = formatTimestampDDMMYYYY(val);
       if(!val) return '';
-      return `<div class="adg-cell"><span class="adg-label">${label}</span><span class="adg-value">${val}</span></div>`;
+      return `<div class="adg-cell"><span class="adg-label">${labelFor(id,label,rec.promoteeOrDirect)}</span><span class="adg-value">${val}</span></div>`;
     })
     .filter(Boolean)
     .join('');
